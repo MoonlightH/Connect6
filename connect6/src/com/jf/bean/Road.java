@@ -19,19 +19,24 @@ public class Road {
 	/** 当前有效路中棋子的个数 */
 	private int validChessCount=0;
 	/** 当前棋路中棋子的信息 */
-	private Vector<Character> chesses=new Vector<>(6);
+	private Vector<ChessData> chesses=new Vector<>(6);
 //
 //  构造方法
 //
-	public Road(Vector<Character> chesses) {
+	public Road(Vector<ChessData> chesses) {
 		this.chesses=chesses;
 		int bChessNum=0;
 		int wChessNum=0;
-		for(char c:chesses){
-			if(c==ChessPoint.BLACKCHESS){
+		for(ChessData c:chesses){
+			//如果棋子数据模型不存在，不做任何判断
+			if(c==null){
+				return;
+			}
+			char chessColor=c.getChessColor();
+			if(chessColor==ChessPoint.BLACKCHESS){
 				bChessNum++;
 			}
-			if(c==ChessPoint.WHITECHESS){
+			if(chessColor==ChessPoint.WHITECHESS){
 				wChessNum++;
 			}
 		}
@@ -67,7 +72,7 @@ public class Road {
 	 *  getChess获取当前路中棋子的信息
 	 *  @return chesses 当前路中的棋子信息
 	 */
-	public Vector<Character> getChesses() {
+	public Vector<ChessData> getChesses() {
 		return chesses;
 	}
 	

@@ -2,11 +2,14 @@ package com.jf.ui;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import com.jf.bean.ChessData;
 import com.jf.ui.event.ChessBoardModelEvent;
 import com.jf.ui.event.ChessBoardModelListener;
 import com.jf.ui.model.ChessBoardModel;
@@ -82,18 +85,19 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 	 */
 	@Override
 	public void chessBoardChanged(ChessBoardModelEvent e) {
-		Vector<Vector<Character>> temp=((DefaultChessBoardModel)e.getSource()).getChessInfo().chessInfo;
-		if(e.getType()==ChessBoardModelEvent.UPDATECHESSPOINT){
-			Vector<Integer> v=e.getLocation();
-			int x=v.get(0);
-			int y=v.get(1);
-			chessPoints[x][y].setChessType(temp.get(x).get(y).charValue());
-		}else if(e.getType()==ChessBoardModelEvent.UPDATEMODEL){
-			Vector<Vector<Integer>> v=e.getLocations();
-			for(Vector<Integer> t:v){
-				int x=t.get(0);
-				int y=t.get(1);
-				chessPoints[x][y].setChessType(temp.get(x).get(y).charValue());
+		//DefaultChessBoardModel defaultChessBoardModel=((DefaultChessBoardModel)e.getSource());
+		if(e.getUpdateWay()==ChessBoardModelEvent.UPDATECHESSPOINT){
+			ChessData chessData = e.getChessData();
+			int x=chessData.getY()-1;
+			int y=chessData.getX()-1;
+			chessPoints[x][y].setChessType(chessData.getChessColor());
+		}
+		if(e.getUpdateWay()==ChessBoardModelEvent.UPDATECHESSMODEL){
+			Vector<ChessData> chessDataArray=e.getChessDataArray();
+			for (ChessData chessData : chessDataArray) {
+				int x=chessData.getY()-1;
+				int y=chessData.getX()-1;
+				chessPoints[x][y].setChessType(chessData.getChessColor());
 			}
 		}
 	}
@@ -112,37 +116,29 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 		}
 		if(this.dataModel!=dataModel){
 			ChessBoardModel old=this.dataModel;
-			Vector<Vector<Character>> newV=((DefaultChessBoardModel)dataModel).getChessInfo().chessInfo;
-			//记录新旧模型中差异的棋点位置
-			Vector<Vector<Integer>> locations=new Vector<>();
+			Vector<ChessData> changedChessDataArray=new Vector<>(50);
+			Hashtable<Integer, ChessData> newChessDataTable=((DefaultChessBoardModel)dataModel).getChessDataTable();
+			for(Enumeration<Integer> newKeys=newChessDataTable.keys();newKeys.hasMoreElements();){
+				Integer key=newKeys.nextElement();
+				ChessData newChessData=newChessDataTable.get(key);
+				changedChessDataArray.add(newChessData);
+			}
 			if(old!=null){
-				Vector<Vector<Character>> oldV=((DefaultChessBoardModel)old).getChessInfo().chessInfo;
+				//移除添加的事件侦听器
 				old.removeChessBoardModelListener(this);
-				for (int i = 0; i < 19; i++) {
-					for (int j = 0; j < 19; j++) {
-						if(oldV.get(i).get(j)!=newV.get(i).get(j)){
-							Vector<Integer> temp=new Vector<>();
-							temp.add(i);
-							temp.add(j);
-							locations.add(temp);
-						}
-					}
-				}
-			}else{
-				for (int i = 0; i < 19; i++) {
-					for (int j = 0; j < 19; j++) {
-						if(newV.get(i).get(j)!=ChessPoint.NOCHESS ){
-							Vector<Integer> temp=new Vector<>();
-							temp.add(i);
-							temp.add(j);
-							locations.add(temp);
-						}
+				Hashtable<Integer, ChessData> oldChessDataTable=((DefaultChessBoardModel)old).getChessDataTable();
+				for(Enumeration<Integer> oldKeys=oldChessDataTable.keys();oldKeys.hasMoreElements();){
+					Integer key=oldKeys.nextElement();
+					ChessData newChessData=newChessDataTable.get(key);
+					ChessData oldChessData=oldChessDataTable.get(key);
+					if(newChessData==null){
+						changedChessDataArray.add(new ChessData(oldChessData.getX(),oldChessData.getY(),oldChessData.getChessColor()));
 					}
 				}
 			}
 			this.dataModel=dataModel;
 			this.dataModel.addChessBoardModelListener(this);
-			chessBoardChanged(new  ChessBoardModelEvent(this.dataModel,locations));
+			chessBoardChanged(new  ChessBoardModelEvent(this.dataModel,changedChessDataArray));
 		}
 	}
 	

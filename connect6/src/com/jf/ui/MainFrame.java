@@ -23,6 +23,8 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
@@ -33,9 +35,10 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
-import com.jf.algorithm.SearchAlgorithm;
+import com.jf.bean.ChessData;
 import com.jf.config.GameConfig;
 import com.jf.ui.model.ChessBoardModel;
+import com.jf.ui.model.DefaultChessBoardModel;
 
 /**
  *  六子棋主窗体
@@ -271,22 +274,31 @@ public class MainFrame extends JFrame{
 		JTextArea textArea_1 = new JTextArea();
 		textArea_1.setBounds(641, 499, 225, 157);
 		getContentPane().add(textArea_1);
-		
-		
-		
+		////////////////////////////////////////////////////
 		gstart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ChessBoard currentChessBoard=ChessBoard.getInstance();
-				ChessBoardModel cbm=currentChessBoard.getModel();
-				
-				ChessBoardModel old=SearchAlgorithm.getNextMoves(cbm);
-				currentChessBoard.setModel(old);
+				ChessBoardModel cbm=ChessBoard.getInstance().getModel();
+				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
+				Hashtable<Integer, ChessData> chessDataTable=dcbm.getChessDataTable();
+				Enumeration<Integer> keys=chessDataTable.keys();
+				for(;keys.hasMoreElements();){
+					int key=keys.nextElement();
+					System.out.println("X:"+key/100+"Y:"+key%100);
+				}
 			}
 		});
 		
-		
-
+		gstop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ChessBoardModel cbm=ChessBoard.getInstance().getModel();
+				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
+				char chessColor=dcbm.getNextStepChessColor();
+				dcbm.addChess(new ChessData(1,2, chessColor));
+			}
+		});
+		/////////////////////////////////////////////////////////////////////////
 		// 为对战模式单选按钮添加事件侦听
 		// 人机对战可以选择AI等级
 		playerVsAi.addMouseListener(new MouseAdapter() {

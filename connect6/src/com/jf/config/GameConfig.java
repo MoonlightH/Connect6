@@ -20,9 +20,6 @@ public class GameConfig {
 	public final static int GENERATEMOVESNORMALDEEP=3;
 	/** 难度为精英时的博弈树搜索深度 */
 	public final static int GENERATEMOVESHARDDEEP=4;
-//GenerateMoves
-	/** 走法生成时，对棋点进行评估时取出估值最高点的宽度 */
-	public final static int GENERATEMOVESWIDTH=5;
 //MainFrame
 	/** 当前棋局的对战模式,默认是人机对战 */
 	public static int VSWay=GameConfig.PLAYERVSAI;

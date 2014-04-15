@@ -1,24 +1,25 @@
 package com.jf.bean;
 
 /**
- *  ChessData棋点的数据类型
+ *  Chess棋子的数据模型
  * 
  *  @author 蒋鹏
  */
-public class ChessData {
+public class ChessData{
 	
 	public ChessData() {
 		
 	}
 	
-	public ChessData(int x,int y){
+	public ChessData(int x,int y,char chessColor){
 		this.x=x;
 		this.y=y;
+		this.chessColor=chessColor;
 	}
 	
 	private int x;
 	private int y;
-	private int evaluateScore = -1;
+	private char chessColor;
 
 	public int getX() {
 		return x;
@@ -36,12 +37,12 @@ public class ChessData {
 		this.y = y;
 	}
 
-	public int getEvaluateScore() {
-		return evaluateScore;
+	public char getChessColor() {
+		return chessColor;
 	}
 
-	public void setEvaluateScore(int evaluateScore) {
-		this.evaluateScore = evaluateScore;
+	public void setChessColor(char chessColor) {
+		this.chessColor = chessColor;
 	}
-
+	
 }

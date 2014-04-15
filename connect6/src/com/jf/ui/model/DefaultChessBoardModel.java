@@ -1,12 +1,12 @@
 package com.jf.ui.model;
 
 import java.io.Serializable;
-import java.util.Vector;
+import java.util.Hashtable;
+import java.util.Stack;
 
 import javax.swing.event.EventListenerList;
 
 import com.jf.bean.ChessData;
-import com.jf.bean.ChessInfo;
 import com.jf.ui.ChessPoint;
 import com.jf.ui.event.ChessBoardModelEvent;
 import com.jf.ui.event.ChessBoardModelListener;
@@ -23,8 +23,11 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 //
 	/** 事件侦听器列表实例，用来存储需要添加的事件 */
 	private EventListenerList repository=new EventListenerList();
-	/** 棋盘信息数组 */
-	private ChessInfo chessInfo=new ChessInfo(); 
+	/** 棋盘上已下棋子哈希列表 */
+	private Hashtable<Integer, ChessData> chessDataTable=new Hashtable<>(50);
+	/** 棋盘上下棋的顺序栈 */
+	private Stack<ChessData> play_stack=new Stack<>();
+	
 //
 //  构造方法
 //
@@ -35,12 +38,8 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 		
 	}
 	/**
-	 *  用棋子数据信息，来初始化默认棋盘数据模型
-	 *  @param dataModel 棋子的数据信息
+	 *  
 	 */
-	public DefaultChessBoardModel(ChessInfo chessInfo){
-		this.chessInfo=chessInfo.deepClone();
-	}
 //
 //  普通方法
 //
@@ -79,44 +78,33 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
         }
 	}
 	/**
-	 *  setChess方法设置棋盘数据模型中棋子(该方法会触发所有添加在该模型上的棋子改变事件)
-	 *  @param x 棋子在棋盘上的x坐标
-	 *  @param y 棋子在棋盘上的y坐标
+	 *  addChess添加棋子(该方法会触发所有添加在该模型上的棋子改变事件)
+	 *  @param chessData 棋子的数据模型
 	 */
-	public void setChess(int x,int y){
-		chessInfo.chessInfo.get(x).set(y, getNextStepChessColor());
-		notifyChessBoardModelEvent(new ChessBoardModelEvent(this,x,y));
+	public void addChess(ChessData chessData){
+		//向下棋的顺序栈中添加棋子
+		play_stack.push(chessData);
+		//向已下棋子hash列表中添加棋子
+		chessDataTable.put(chessData.getX()*100+chessData.getY(), chessData);
+		notifyChessBoardModelEvent(new ChessBoardModelEvent(this,chessData));
+	}
+	/**
+	 *  removeChess移除棋子()
+	 *  @param chessData 需要移除的棋子对象数据模型
+	 */
+	public void removeChess(ChessData chessData){
+		//移除顺序栈顶棋子
+		play_stack.pop();
+		//移除已下棋子hash列表中的棋子
+		chessDataTable.remove(chessData);
 	}
 	/**
 	 *  获取当前棋局所有棋子的总数目
 	 *  @return count 当前棋子总数目
 	 */
 	public int getAllChessNumber(){
-		int count=0;
-		for (Vector<Character> v : chessInfo.chessInfo) {
-			for(Character c:v){
-				if(c.charValue()!=ChessPoint.NOCHESS){
-					count++;
-				}
-			}
-		}
+		int count=chessDataTable.size();
 		return count;
-	}
-	/**
-	 *  获取当前棋局下所有空棋点的坐标
-	 *  @return nullPoints 所有的空棋点
-	 */
-	public Vector<ChessData> getAllNullChessPoints(){
-		Vector<ChessData> nullPoints=new Vector<>();
-		for(int i = 0; i < 19; i++){
-			for (int j = 0; j < 19; j++) {
-				if(chessInfo.chessInfo.get(i).get(j)==ChessPoint.NOCHESS){
-					ChessData chess=new ChessData(i,j);
-					nullPoints.add(chess);
-				}
-			}
-		}
-		return nullPoints;
 	}
 	/**
 	 *  获取当前棋局局势下，下一个子的颜色
@@ -156,13 +144,12 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 		}
 		return chessColor;
 	}
-	
 	/**
-	 *  deepClone方法实现深度复制（通用方法是用序列化、反序列化实现对象深度复制,但代价比较大）
+	 *  深度复制默认棋局数据模型，因为事件侦听器牵扯对象较多且没必要复制所以忽略
+	 *  
 	 */
 	public DefaultChessBoardModel deepClone(){
-		DefaultChessBoardModel defaultChessBoardModel=new DefaultChessBoardModel(this.chessInfo);
-		return defaultChessBoardModel;
+		
 	}
 //
 //  查询、设置变量的方法
@@ -174,12 +161,12 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 	public void setRepository(EventListenerList repository) {
 		this.repository = repository;
 	}
-
-	public ChessInfo getChessInfo() {
-		return chessInfo;
+	
+	public Hashtable<Integer, ChessData> getChessDataTable() {
+		return chessDataTable;
 	}
-
-	public void setDataModel(ChessInfo chessInfo) {
-		this.chessInfo = chessInfo;
+	
+	public Stack<ChessData> getPlay_stack(){
+		return play_stack;
 	}
 }

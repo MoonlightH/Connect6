@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import com.jf.bean.ChessData;
 import com.jf.ui.model.DefaultChessBoardModel;
 
 /**
@@ -57,7 +58,11 @@ public class ChessPoint extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			ChessBoard currentChessBoard=ChessBoard.getInstance();
 			DefaultChessBoardModel dcbm=(DefaultChessBoardModel)currentChessBoard.getModel();
-			dcbm.setChess(ChessPoint.this.x, ChessPoint.this.y);
+			//坐标上的x是纵向的所以得颠倒x,y的值
+			int x=ChessPoint.this.y+1;
+			int y=ChessPoint.this.x+1;
+			char chessColor=dcbm.getNextStepChessColor();
+			dcbm.addChess(new ChessData(x,y,chessColor));
 		}
 	};
 //

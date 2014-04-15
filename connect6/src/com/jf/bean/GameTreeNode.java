@@ -21,7 +21,7 @@ public class GameTreeNode {
 	/** fatherNode表示当前节点的父节点 */
 	private GameTreeNode fatherNode;
 	/** childNodes表示的是当前节点的子节点 */
-	private Vector<GameTreeNode> childNodes=new Vector<>(5,5);
+	private Vector<GameTreeNode> childNodes=new Vector<>();
 //  构造方法
 	public GameTreeNode(ChessBoardModel cbm) {
 		DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
