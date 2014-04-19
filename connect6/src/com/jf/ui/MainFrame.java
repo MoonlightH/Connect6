@@ -23,8 +23,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.Vector;
 
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
@@ -35,7 +34,10 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
+import com.jf.algorithm.GenerateMoves;
+import com.jf.algorithm.SearchAlgorithm;
 import com.jf.bean.ChessData;
+import com.jf.bean.Move;
 import com.jf.config.GameConfig;
 import com.jf.ui.model.ChessBoardModel;
 import com.jf.ui.model.DefaultChessBoardModel;
@@ -278,13 +280,11 @@ public class MainFrame extends JFrame{
 		gstart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ChessBoardModel cbm=ChessBoard.getInstance().getModel();
-				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
-				Hashtable<Integer, ChessData> chessDataTable=dcbm.getChessDataTable();
-				Enumeration<Integer> keys=chessDataTable.keys();
-				for(;keys.hasMoreElements();){
-					int key=keys.nextElement();
-					System.out.println("X:"+key/100+"Y:"+key%100);
+				ChessBoard chessBoard=ChessBoard.getInstance();
+				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)chessBoard.getModel();
+				Move bestMove=SearchAlgorithm.getNextMoves(dcbm);
+				for(ChessData chessData:bestMove.getChessDataArray()){
+					dcbm.addChess(chessData);
 				}
 			}
 		});

@@ -7,6 +7,7 @@ import java.util.Stack;
 import javax.swing.event.EventListenerList;
 
 import com.jf.bean.ChessData;
+import com.jf.bean.Move;
 import com.jf.ui.ChessPoint;
 import com.jf.ui.event.ChessBoardModelEvent;
 import com.jf.ui.event.ChessBoardModelListener;
@@ -26,7 +27,7 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 	/** 棋盘上已下棋子哈希列表 */
 	private Hashtable<Integer, ChessData> chessDataTable=new Hashtable<>(50);
 	/** 棋盘上下棋的顺序栈 */
-	private Stack<ChessData> play_stack=new Stack<>();
+	private Stack<Integer> play_stack=new Stack<>();
 	
 //
 //  构造方法
@@ -37,9 +38,6 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 	public DefaultChessBoardModel() {
 		
 	}
-	/**
-	 *  
-	 */
 //
 //  普通方法
 //
@@ -82,21 +80,12 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 	 *  @param chessData 棋子的数据模型
 	 */
 	public void addChess(ChessData chessData){
+		int key=chessData.getX()*100+chessData.getY();
 		//向下棋的顺序栈中添加棋子
-		play_stack.push(chessData);
+		play_stack.push(key);
 		//向已下棋子hash列表中添加棋子
-		chessDataTable.put(chessData.getX()*100+chessData.getY(), chessData);
+		chessDataTable.put(key, chessData);
 		notifyChessBoardModelEvent(new ChessBoardModelEvent(this,chessData));
-	}
-	/**
-	 *  removeChess移除棋子()
-	 *  @param chessData 需要移除的棋子对象数据模型
-	 */
-	public void removeChess(ChessData chessData){
-		//移除顺序栈顶棋子
-		play_stack.pop();
-		//移除已下棋子hash列表中的棋子
-		chessDataTable.remove(chessData);
 	}
 	/**
 	 *  获取当前棋局所有棋子的总数目
@@ -145,11 +134,28 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 		return chessColor;
 	}
 	/**
-	 *  深度复制默认棋局数据模型，因为事件侦听器牵扯对象较多且没必要复制所以忽略
-	 *  
+	 *  执行下一回合走法
+	 *  @param move 一回合走法
 	 */
-	public DefaultChessBoardModel deepClone(){
-		
+	public void makeNextMove(Move move){
+		for(ChessData chessData:move.getChessDataArray()){
+			int key=chessData.getX()*100+chessData.getY();
+			//向下棋的顺序栈中添加棋子
+			play_stack.push(key);
+			//向已下棋子hash列表中添加棋子
+			chessDataTable.put(key, chessData);
+		}
+	}
+	/**
+	 *  撤消本回合走法所下棋子
+	 */
+	public void unMakeMove(){
+		for(int i=0;i<2;i++){
+			//从下棋顺序栈中弹出添加的棋子
+			int key=play_stack.pop();
+			//从已下棋子hash列表中移除添加的棋子
+			chessDataTable.remove(key);
+		}
 	}
 //
 //  查询、设置变量的方法
@@ -158,15 +164,11 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 		return repository;
 	}
 
-	public void setRepository(EventListenerList repository) {
-		this.repository = repository;
-	}
-	
 	public Hashtable<Integer, ChessData> getChessDataTable() {
 		return chessDataTable;
 	}
 	
-	public Stack<ChessData> getPlay_stack(){
+	public Stack<Integer> getPlay_stack(){
 		return play_stack;
 	}
 }

@@ -30,7 +30,7 @@ public class Road {
 		for(ChessData c:chesses){
 			//如果棋子数据模型不存在，不做任何判断
 			if(c==null){
-				return;
+				continue;
 			}
 			char chessColor=c.getChessColor();
 			if(chessColor==ChessPoint.BLACKCHESS){

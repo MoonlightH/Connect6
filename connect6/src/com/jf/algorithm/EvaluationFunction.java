@@ -21,7 +21,7 @@ import com.jf.ui.model.DefaultChessBoardModel;
  */
 public class EvaluationFunction {
 	/** 对路的评分准则，该结果通过遗传算法离线优化得到 */
-	public final static int[] SCOREOFROAD = {0,17, 78, 141, 788, 1030};
+	public final static int[] SCOREOFROAD = {0, 17, 78, 141, 788, 1030, 100000};
 	/** 所有的棋路 */
 	public static Vector<Road> allRoads = new Vector<>(924);
 	/** 黑子的有效棋路数 */
@@ -104,7 +104,7 @@ public class EvaluationFunction {
 		int blackRoadScore = 0;
 		int whiteRoadScore = 0;
 		checkChessStatus(cbm);
-		for (int i = 1; i < 6; i++) {
+		for (int i = 1; i < 7; i++) {
 			blackRoadScore += numberOfBlackRoad[i] * SCOREOFROAD[i];
 			whiteRoadScore += numberOfWhiteRoad[i] * SCOREOFROAD[i];
 		}

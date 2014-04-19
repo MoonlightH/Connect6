@@ -85,7 +85,6 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 	 */
 	@Override
 	public void chessBoardChanged(ChessBoardModelEvent e) {
-		//DefaultChessBoardModel defaultChessBoardModel=((DefaultChessBoardModel)e.getSource());
 		if(e.getUpdateWay()==ChessBoardModelEvent.UPDATECHESSPOINT){
 			ChessData chessData = e.getChessData();
 			int x=chessData.getY()-1;
@@ -130,9 +129,8 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 				for(Enumeration<Integer> oldKeys=oldChessDataTable.keys();oldKeys.hasMoreElements();){
 					Integer key=oldKeys.nextElement();
 					ChessData newChessData=newChessDataTable.get(key);
-					ChessData oldChessData=oldChessDataTable.get(key);
 					if(newChessData==null){
-						changedChessDataArray.add(new ChessData(oldChessData.getX(),oldChessData.getY(),oldChessData.getChessColor()));
+						changedChessDataArray.add(new ChessData(key/100,key%100,ChessPoint.NOCHESS));
 					}
 				}
 			}
