@@ -15,11 +15,14 @@ public class GameConfig {
 	/** 博弈双方的身份-AI */
 	public final static int AI=1;
 	/** 难度为新手时的博弈树搜索深度 */
-	public final static int GENERATEMOVESNOVICEDEEP=1;
+	public final static int GENERATEMOVESNOVICEDEEP=2;
 	/** 难度为普通时的博弈树搜索深度 */
-	public final static int GENERATEMOVESNORMALDEEP=5;
+	public final static int GENERATEMOVESNORMALDEEP=3;
 	/** 难度为精英时的博弈树搜索深度 */
-	public final static int GENERATEMOVESHARDDEEP=7;
+	public final static int GENERATEMOVESHARDDEEP=4;
+//GenerateMoves
+	/** 走法生成时获取棋点的宽度 */
+	public final static int GENERATEMOVESWIDTH=10;
 //MainFrame
 	/** 当前棋局的对战模式,默认是人机对战 */
 	public static int VSWay=GameConfig.PLAYERVSAI;

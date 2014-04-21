@@ -7,7 +7,9 @@ import java.util.Set;
 import java.util.Vector;
 
 import com.jf.bean.ChessData;
+import com.jf.bean.ChessPointScore;
 import com.jf.bean.Move;
+import com.jf.config.GameConfig;
 import com.jf.ui.model.ChessBoardModel;
 import com.jf.ui.model.DefaultChessBoardModel;
 
@@ -24,8 +26,9 @@ public class GenerateMoves {
 	 */
 	public static Vector<Move> generateMoves(ChessBoardModel chessBoardModel){
 		DefaultChessBoardModel defaultChessBoardModel=(DefaultChessBoardModel)chessBoardModel;
-		HashSet<ChessData> reserveChessPointData=getReserveChessPoints(defaultChessBoardModel);
 		Vector<Move> moves=new Vector<>();
+		
+		HashSet<ChessData> reserveChessPointData=getReserveChessPoints(defaultChessBoardModel);
 		//通过迭代器来实现一次下棋回合中的重复步数，可以使得生成的节点减少一半
 		Iterator<ChessData> iStepOne=reserveChessPointData.iterator();
 		while(iStepOne.hasNext()){
@@ -39,7 +42,23 @@ public class GenerateMoves {
 				moves.add(m);
 			}
 		}
-		System.out.println(moves.size());
+//		char color = defaultChessBoardModel.getNextStepChessColor();
+//		Vector<ChessPointScore> step1=new Vector<>(GameConfig.GENERATEMOVESWIDTH);
+//		step1=EvaluationFunction.getTopScore(chessBoardModel, GameConfig.GENERATEMOVESWIDTH);
+//		int size=step1.size();
+//		for(int i=0;i<size;i++){
+//			ChessPointScore cps1=step1.get(i);
+//			ChessData chessData=new ChessData(cps1.getX(), cps1.getY(), color);
+//			defaultChessBoardModel.makeChess(chessData);
+//			int width=size-i;
+//			Vector<ChessPointScore> step2=new Vector<>(width);
+//			step2=EvaluationFunction.getTopScore(defaultChessBoardModel, width);
+//			for (ChessPointScore cps2 : step2) {
+//				Move move=new Move(chessData, new ChessData(cps2.getX(), cps2.getY(), color));
+//				moves.add(move);
+//			}
+//			defaultChessBoardModel.unMakeChess();
+//		}
 		return moves;
 	}
 	/**

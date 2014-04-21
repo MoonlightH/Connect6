@@ -34,6 +34,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
+import com.jf.algorithm.EvaluationFunction;
 import com.jf.algorithm.GenerateMoves;
 import com.jf.algorithm.SearchAlgorithm;
 import com.jf.bean.ChessData;
@@ -282,10 +283,10 @@ public class MainFrame extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				ChessBoard chessBoard=ChessBoard.getInstance();
 				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)chessBoard.getModel();
-				Move bestMove=SearchAlgorithm.getNextMoves(dcbm);
-				for(ChessData chessData:bestMove.getChessDataArray()){
-					dcbm.addChess(chessData);
-				}
+				long start=System.currentTimeMillis();
+				GenerateMoves.generateMoves(dcbm);
+				long end=System.currentTimeMillis();
+				System.out.println("生成走法耗时"+(end-start)+"毫秒");
 			}
 		});
 		

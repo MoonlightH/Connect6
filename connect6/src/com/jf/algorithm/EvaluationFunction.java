@@ -2,12 +2,18 @@ package com.jf.algorithm;
 
 //import java.util.Collections;
 //import java.util.Comparator;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.Vector;
 
 
 
+
+
+
 import com.jf.bean.ChessData;
+import com.jf.bean.ChessPointScore;
 //import com.jf.bean.ChessData;
 import com.jf.bean.Road;
 import com.jf.ui.ChessPoint;
@@ -21,7 +27,7 @@ import com.jf.ui.model.DefaultChessBoardModel;
  */
 public class EvaluationFunction {
 	/** 对路的评分准则，该结果通过遗传算法离线优化得到 */
-	public final static int[] SCOREOFROAD = {0, 17, 78, 141, 788, 1030, 100000};
+	public final static int[] SCOREOFROAD = {0, 17, 78, 141, 788, 1030, 10000};
 	/** 所有的棋路 */
 	public static Vector<Road> allRoads = new Vector<>(924);
 	/** 黑子的有效棋路数 */
@@ -39,8 +45,8 @@ public class EvaluationFunction {
 		numberOfWhiteRoad = new int[7];
 		DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
 		Hashtable<Integer, ChessData> chessDataTable=dcbm.getChessDataTable();
-		for (int i = 0; i < 19; i++) {
-			for (int j = 0; j < 14; j++) {
+		for (int i = 1; i <= 19; i++) {
+			for (int j = 1; j <= 14; j++) {
 				Vector<ChessData> horizontal = new Vector<>(6);
 				horizontal.add(chessDataTable.get(i*100+j));
 				horizontal.add(chessDataTable.get(i*100+j+1));
@@ -61,8 +67,8 @@ public class EvaluationFunction {
 				allRoads.add(vR);
 			}
 		}
-		for (int i = 0; i < 14; i++) {
-			for (int j = 0; j < 14; j++) {
+		for (int i = 1; i <= 14; i++) {
+			for (int j = 1; j <= 14; j++) {
 				Vector<ChessData> leftOblique = new Vector<>(6);
 				leftOblique.add(chessDataTable.get(i*100+j));
 				leftOblique.add(chessDataTable.get((i+1)*100+j+1));
@@ -115,6 +121,60 @@ public class EvaluationFunction {
 			currentScore = whiteRoadScore - blackRoadScore;
 		}
 		return currentScore;
+	}
+	/**
+	 *  getChessPointScore 对棋点进行评估
+	 *  @param chessData 要评估的棋子
+	 *  @param chessBoardModel 评估前的棋局数据模型
+	 *  @return chessPointScore 返回棋点的评估值
+	 */
+	public static ChessPointScore getChessPointScore(ChessData chessData,ChessBoardModel chessBoardModel){
+		DefaultChessBoardModel defaultCBM=(DefaultChessBoardModel)chessBoardModel;
+		int oldScore=evaluateChessStatus(chessData.getChessColor(), defaultCBM);
+		defaultCBM.makeChess(chessData);
+		int newScore=evaluateChessStatus(chessData.getChessColor(), defaultCBM);
+		defaultCBM.unMakeChess();
+		int score=newScore-oldScore;
+		int key=chessData.getX()*100+chessData.getY();
+		ChessPointScore chessPointScore=new ChessPointScore(key, score);
+		return chessPointScore;
+	}
+	/**
+	 *  getTopScore 获取评估值前top个的棋点坐标
+	 *  @param chessBoardMdel 当前棋局数据模型
+	 *  @param top 要获取的棋点左边的数量
+	 *  @return chesses 返回的棋点坐标数组
+	 */
+	public static Vector<ChessPointScore> getTopScore(ChessBoardModel chessBoardModel,int top){
+		Vector<ChessPointScore> chesses=new Vector<>(top);
+		Vector<ChessPointScore> temp=new Vector<>();
+		DefaultChessBoardModel defaultCBM=(DefaultChessBoardModel)chessBoardModel;
+		Hashtable<Integer, ChessData> chessDataTable=defaultCBM.getChessDataTable();
+		for(int i = 1; i <= 19; i++){
+			for (int j = 1; j <= 19; j++) {
+				int key=i*100+j;
+				if(chessDataTable.get(key)==null){
+					temp.add(getChessPointScore(new ChessData(i, j, defaultCBM.getNextStepChessColor()),chessBoardModel));
+				}
+			}
+		}
+		//利用Collections进行排序
+		Collections.sort(temp, new Comparator<ChessPointScore>() {
+			@Override
+			public int compare(ChessPointScore o1, ChessPointScore o2) {
+				int result=0;
+				if(o1.getScore()>o2.getScore()){
+					result=-1;
+				}else if(o1.getScore()<o2.getScore()){
+					result=1;
+				}
+				return result;
+			}
+		});
+		for (int i = 0; i < top; i++) {
+			chesses.add(temp.get(i));
+		}
+		return chesses;
 	}
 	/**
 	 *  isGameOver 根据棋局数据模型判断棋局是否结束

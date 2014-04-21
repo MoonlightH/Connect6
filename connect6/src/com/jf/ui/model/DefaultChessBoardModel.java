@@ -139,11 +139,7 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 	 */
 	public void makeNextMove(Move move){
 		for(ChessData chessData:move.getChessDataArray()){
-			int key=chessData.getX()*100+chessData.getY();
-			//向下棋的顺序栈中添加棋子
-			play_stack.push(key);
-			//向已下棋子hash列表中添加棋子
-			chessDataTable.put(key, chessData);
+			makeChess(chessData);
 		}
 	}
 	/**
@@ -151,11 +147,27 @@ public class DefaultChessBoardModel implements ChessBoardModel,Serializable {
 	 */
 	public void unMakeMove(){
 		for(int i=0;i<2;i++){
-			//从下棋顺序栈中弹出添加的棋子
-			int key=play_stack.pop();
-			//从已下棋子hash列表中移除添加的棋子
-			chessDataTable.remove(key);
+			unMakeChess();
 		}
+	}
+	/**
+	 *  下一个棋子 
+	 */
+	public void makeChess(ChessData chessData){
+		int key=chessData.getX()*100+chessData.getY();
+		//向下棋的顺序栈中添加棋子
+		play_stack.push(key);
+		//向已下棋子hash列表中添加棋子
+		chessDataTable.put(key, chessData);
+	}
+	/**
+	 *  移除一个棋子
+	 */
+	public void unMakeChess(){
+		//从下棋顺序栈中弹出添加的棋子
+		int key=play_stack.pop();
+		//从已下棋子hash列表中移除添加的棋子
+		chessDataTable.remove(key);
 	}
 //
 //  查询、设置变量的方法
