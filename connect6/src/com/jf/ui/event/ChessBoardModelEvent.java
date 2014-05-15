@@ -1,62 +1,69 @@
 package com.jf.ui.event;
 
 import java.util.EventObject;
-import java.util.Vector;
+import java.util.HashSet;
 
-import com.jf.bean.ChessData;
 import com.jf.ui.model.ChessBoardModel;
 
 /**
- *  ChessBoardModelEvent棋盘数据模型的事件
- *  
- *  @author 蒋鹏
+ * ChessBoardModelEvent棋盘数据模型的事件
+ * @author 蒋鹏
  */
 public class ChessBoardModelEvent extends EventObject{
 
 	private static final long serialVersionUID = 1L;
-	/** 只跟新单个棋点 */
+	/** 只更新单个棋点 */
 	public final static int UPDATECHESSPOINT=0;
-	/** 跟新整个棋盘数据模型 */
+	/** 更新整个棋盘数据模型 */
 	public final static int UPDATECHESSMODEL=1;
-	
-	private ChessData chessData;
-	private Vector<ChessData> chessDataArray;
+	/** 需要更新的单个棋点坐标复合值 */
+	private Integer coord;
+	/** 需要更新的棋点坐标复合值集合 */
+	private HashSet<Integer> coordSet;
 	//跟新棋盘的类型
 	private int updateWay=-1;
-//
-//  查询方法
-//
-	public ChessData getChessData() {
-		return chessData;
-	}
-	
-	public Vector<ChessData> getChessDataArray(){
-		return chessDataArray;
-	}
-	
-	public int getUpdateWay(){
-		return updateWay;
-	}
 //
 //  构造方法
 //
 	/**
-	 *  构造方法的参数含有棋子数据模型
-	 *  @param source 事件源对象
-	 *  @param chessData 棋子对象数据模型
+	 * 构造方法的参数含有棋子数据模型
+	 * @param source 事件源对象
 	 */
-	public ChessBoardModelEvent(ChessBoardModel source,ChessData chessData) {
+	public ChessBoardModelEvent(ChessBoardModel source) {
 		super(source);
-		this.chessData=chessData;
+	}
+	/**
+	 * 构造方法的参数含有棋子数据模型
+	 * @param source 事件源对象
+	 * @param coord 棋点坐标
+	 */
+	public ChessBoardModelEvent(ChessBoardModel source,Integer coord) {
+		super(source);
+		this.coord=coord;
 		updateWay=UPDATECHESSPOINT;
 	}
 	/**
-	 *  构造方法参数包含改变的棋子数据模型数组
-	 *  
+	 * 构造方法参数包含改变的棋子数据模型数组
+	 * @param source 事件源对象
+	 * @param coordSet 棋点坐标集合
 	 */
-	public ChessBoardModelEvent(ChessBoardModel source,Vector<ChessData> chessDataArray) {
+	public ChessBoardModelEvent(ChessBoardModel source,HashSet<Integer> coordSet) {
 		super(source);
-		this.chessDataArray=chessDataArray;
+		this.coordSet=coordSet;
 		updateWay=UPDATECHESSMODEL;
+	}
+//
+//  查询方法
+//
+	public Integer getCoord() {
+		return coord;
+	}
+	
+	public HashSet<Integer> getCoordSet(){
+		return coordSet;
+	}
+	
+	public int getUpdateWay(){
+		return updateWay;
 	}
 }

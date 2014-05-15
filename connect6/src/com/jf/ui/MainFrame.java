@@ -1,6 +1,7 @@
 package com.jf.ui;
 
 import java.awt.Desktop;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
@@ -17,16 +19,19 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Vector;
 
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -34,27 +39,34 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
-import com.jf.algorithm.EvaluationFunction;
-import com.jf.algorithm.GenerateMoves;
-import com.jf.algorithm.SearchAlgorithm;
-import com.jf.bean.ChessData;
-import com.jf.bean.Move;
+import com.jf.bean.Judge;
 import com.jf.config.GameConfig;
+import com.jf.ui.event.RoleChangeEvent;
 import com.jf.ui.model.ChessBoardModel;
 import com.jf.ui.model.DefaultChessBoardModel;
 
 /**
- *  六子棋主窗体
- *  
- *  @author 蒋鹏
+ * 六子棋主窗体 
+ * 
+ * @author 蒋鹏
  */
 public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
+	
+	private static MainFrame mainFrame;
+	
+	private JProgressBar thinking;
+	
+	private JTextArea chessManualShower;
+	
+	private JButton gstart;
+	
+	private JButton gstop;
+	
 	/**
-	 *  无参构造函数,使用默认的棋盘数据模型来实例化棋盘
-	 *  
+	 * 无参构造函数,使用默认的棋盘数据模型来实例化棋盘  
 	 */
-	public MainFrame() {
+	private MainFrame() {
 		setTitle("六子棋");
 		setIconImage(new ImageIcon("./images/icon.png").getImage());
 		setResizable(false);
@@ -82,25 +94,17 @@ public class MainFrame extends JFrame{
 		openNewGame.setFont(myFont);
 		openNewGame.setAccelerator(KeyStroke.getKeyStroke('O',
 				InputEvent.CTRL_DOWN_MASK));
+		openNewGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ChessBoard.getInstance().setModel(new DefaultChessBoardModel());
+				chessManualShower.setText("");
+			}
+		});
 		game.add(openNewGame);
 
 		JSeparator separator_1 = new JSeparator();
 		game.add(separator_1);
-
-		JMenuItem loadGame = new JMenuItem("读取存档");
-		loadGame.setFont(myFont);
-		loadGame.setAccelerator(KeyStroke.getKeyStroke('L',
-				InputEvent.CTRL_DOWN_MASK));
-		game.add(loadGame);
-
-		JMenuItem saveGame = new JMenuItem("保存存档");
-		saveGame.setFont(myFont);
-		saveGame.setAccelerator(KeyStroke.getKeyStroke('S',
-				InputEvent.CTRL_DOWN_MASK));
-		game.add(saveGame);
-
-		JSeparator separator_2 = new JSeparator();
-		game.add(separator_2);
 
 		JMenuItem quitGame = new JMenuItem("离开");
 		quitGame.setFont(myFont);
@@ -119,7 +123,7 @@ public class MainFrame extends JFrame{
 		chessModel.setFont(myFont);
 		menuBar.add(chessModel);
 
-		JMenuItem start = new JMenuItem("开始");
+		final JMenuItem start = new JMenuItem("开始");
 		start.setFont(myFont);
 		start.setAccelerator(KeyStroke.getKeyStroke('P',
 				InputEvent.SHIFT_DOWN_MASK));
@@ -130,15 +134,6 @@ public class MainFrame extends JFrame{
 		stop.setAccelerator(KeyStroke.getKeyStroke('S',
 				InputEvent.SHIFT_DOWN_MASK));
 		chessModel.add(stop);
-
-		JSeparator separator_3 = new JSeparator();
-		chessModel.add(separator_3);
-
-		JMenuItem retract = new JMenuItem("悔棋");
-		retract.setFont(myFont);
-		retract.setAccelerator(KeyStroke.getKeyStroke('Z',
-				InputEvent.CTRL_DOWN_MASK));
-		chessModel.add(retract);
 
 		// 向菜单栏中添加“关于”
 		JMenu about = new JMenu("关于");
@@ -171,15 +166,17 @@ public class MainFrame extends JFrame{
 		/**
 		 * 程序控制器部分
 		 */
-		JButton gstart = new JButton("开始");
+		gstart = new JButton("开始");
 		gstart.setBounds(641, 54, 93, 23);
 		getContentPane().add(gstart);
+		
 
-		JButton gstop = new JButton("停止");
+		gstop = new JButton("停止");
 		gstop.setBounds(744, 54, 93, 23);
 		getContentPane().add(gstop);
+		
 
-		JPanel vsWays = new JPanel();
+		final JPanel vsWays = new JPanel();
 		TitledBorder tBorder_vs = BorderFactory.createTitledBorder("对战模式");
 		tBorder_vs.setTitleFont(myFont);
 		vsWays.setBorder(tBorder_vs);
@@ -189,20 +186,32 @@ public class MainFrame extends JFrame{
 
 		ButtonGroup vsWay = new ButtonGroup();
 
-		JRadioButton playerVsAi = new JRadioButton("人机对战");
+		final JRadioButton playerVsAi = new JRadioButton("人机对战");
 		playerVsAi.setBounds(26, 15, 80, 25);
 		vsWays.add(playerVsAi);
 		playerVsAi.setFont(myFont);
 		playerVsAi.setSelected(true);
 		vsWay.add(playerVsAi);
+		playerVsAi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GameConfig.VSWay=GameConfig.PLAYERVSAI;
+			}
+		});
 
-		JRadioButton playerVsPlayer = new JRadioButton("人人对战");
+		final JRadioButton playerVsPlayer = new JRadioButton("人人对战");
 		playerVsPlayer.setBounds(123, 16, 80, 23);
 		vsWays.add(playerVsPlayer);
 		playerVsPlayer.setFont(myFont);
 		vsWay.add(playerVsPlayer);
+		playerVsPlayer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GameConfig.VSWay=GameConfig.PLAYERVSPLAYER;
+			}
+		});
 
-		JPanel black = new JPanel();
+		final JPanel black = new JPanel();
 		black.setBounds(641, 143, 222, 70);
 		TitledBorder tBorder_b = BorderFactory.createTitledBorder("黑方");
 		tBorder_b.setTitleFont(myFont);
@@ -215,21 +224,39 @@ public class MainFrame extends JFrame{
 		play_1.setFont(myFont);
 		play_1.setSelected(true);
 		black.add(play_1);
+		play_1.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JRadioButton jrb=(JRadioButton)e.getSource();
+				if(jrb.isSelected()){
+					GameConfig.BlackStatus=GameConfig.PLAYER;
+				}
+			}
+		});
 
 		final JRadioButton play_2 = new JRadioButton("AI");
 		play_2.setBounds(36, 41, 80, 23);
 		play_2.setFont(myFont);
 		black.add(play_2);
+		play_2.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JRadioButton jrb=(JRadioButton)e.getSource();
+				if(jrb.isSelected()){
+					GameConfig.BlackStatus=GameConfig.AI;
+				}
+			}
+		});
 
 		ButtonGroup blackPlayer = new ButtonGroup();
 		blackPlayer.add(play_1);
 		blackPlayer.add(play_2);
 
-		JLabel lblNewLabel = new JLabel("00:00:00");
-		lblNewLabel.setBounds(122, 20, 54, 15);
-		black.add(lblNewLabel);
+		final BlackTimer blackTimer = BlackTimer.getInstance();
+		blackTimer.setBounds(122, 20, 54, 15);
+		black.add(blackTimer);
 
-		JPanel white = new JPanel();
+		final JPanel white = new JPanel();
 		white.setBounds(641, 212, 222, 70);
 		TitledBorder tBorder_w = BorderFactory.createTitledBorder("白方");
 		tBorder_w.setTitleFont(myFont);
@@ -241,20 +268,38 @@ public class MainFrame extends JFrame{
 		play_3.setBounds(36, 16, 80, 23);
 		play_3.setFont(myFont);
 		white.add(play_3);
+		play_3.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JRadioButton jrb=(JRadioButton)e.getSource();
+				if(jrb.isSelected()){
+					GameConfig.WhiteStatus=GameConfig.PLAYER;
+				}
+			}
+		});
 
 		final JRadioButton play_4 = new JRadioButton("AI");
 		play_4.setBounds(36, 41, 80, 23);
 		play_4.setFont(myFont);
 		play_4.setSelected(true);
 		white.add(play_4);
+		play_4.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JRadioButton jrb=(JRadioButton)e.getSource();
+				if(jrb.isSelected()){
+					GameConfig.WhiteStatus=GameConfig.AI;
+				}
+			}
+		});
 
 		ButtonGroup whitePlayer = new ButtonGroup();
 		whitePlayer.add(play_3);
 		whitePlayer.add(play_4);
 
-		JLabel label = new JLabel("00:00:00");
-		label.setBounds(122, 20, 54, 15);
-		white.add(label);
+		WhiteTimer whiteTimer = WhiteTimer.getInstance();
+		whiteTimer.setBounds(122, 20, 54, 15);
+		white.add(whiteTimer);
 
 		final JLabel lblAi = new JLabel("AI等级");
 		lblAi.setBounds(672, 292, 42, 15);
@@ -265,41 +310,38 @@ public class MainFrame extends JFrame{
 				"普通", "精英" }));
 		aiLevel.setBounds(724, 289, 78, 21);
 		getContentPane().add(aiLevel);
+		aiLevel.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				String item=e.getItem().toString();
+				switch (item) {
+				case "新手":
+					GameConfig.AILevel=GameConfig.NOVICEDEEP;
+					break;
+				case "普通":
+					GameConfig.AILevel=GameConfig.NORMALDEEP;
+					break;
+				case "精英":
+					GameConfig.AILevel=GameConfig.HARDDEEP;
+					break;
+				}
+			}
+		});
 
-		final JProgressBar thinking = new JProgressBar();
+		thinking = new JProgressBar();
 		thinking.setBounds(641, 317, 222, 14);
 		getContentPane().add(thinking);
-
-		JTextArea chessManualShower = new JTextArea();
-		chessManualShower.setBounds(641, 341, 222, 148);
-		getContentPane().add(chessManualShower);
-
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(641, 499, 225, 157);
-		getContentPane().add(textArea_1);
-		////////////////////////////////////////////////////
-		gstart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ChessBoard chessBoard=ChessBoard.getInstance();
-				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)chessBoard.getModel();
-				long start=System.currentTimeMillis();
-				GenerateMoves.generateMoves(dcbm);
-				long end=System.currentTimeMillis();
-				System.out.println("生成走法耗时"+(end-start)+"毫秒");
-			}
-		});
 		
-		gstop.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ChessBoardModel cbm=ChessBoard.getInstance().getModel();
-				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
-				char chessColor=dcbm.getNextStepChessColor();
-				dcbm.addChess(new ChessData(1,2, chessColor));
-			}
-		});
-		/////////////////////////////////////////////////////////////////////////
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(641, 341, 222, 306);
+		getContentPane().add(scrollPane);
+		
+		chessManualShower = new JTextArea();
+		chessManualShower.setEditable(false);
+		chessManualShower.setBounds(641, 341, 222, 306);
+		chessManualShower.setMargin(new Insets(3, 5, 3, 5));
+		scrollPane.setViewportView(chessManualShower);
+		
 		// 为对战模式单选按钮添加事件侦听
 		// 人机对战可以选择AI等级
 		playerVsAi.addMouseListener(new MouseAdapter() {
@@ -362,5 +404,75 @@ public class MainFrame extends JFrame{
 				play_1.setSelected(true);
 			}
 		});
+		
+		gstart.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gstart.setEnabled(false);
+				start.setEnabled(false);
+				playerVsAi.setEnabled(false);
+				playerVsPlayer.setEnabled(false);
+				play_1.setEnabled(false);
+				play_2.setEnabled(false);
+				play_3.setEnabled(false);
+				play_4.setEnabled(false);
+				aiLevel.setEnabled(false);
+				ChessBoardModel cbm=ChessBoard.getInstance().getModel();
+				Judge judge=Judge.getInstance();
+				judge.init();
+				judge.roleChanged(new RoleChangeEvent(cbm));
+			}
+		});
+		
+		gstop.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gstart.setEnabled(true);
+				start.setEnabled(true);
+				playerVsAi.setEnabled(true);
+				playerVsPlayer.setEnabled(true);
+				play_1.setEnabled(true);
+				play_2.setEnabled(true);
+				play_3.setEnabled(true);
+				play_4.setEnabled(true);
+				aiLevel.setEnabled(true);
+				Judge judge=Judge.getInstance();
+				judge.destory();
+			}
+		});
+		
+		start.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gstart.doClick();
+			}
+		});
+		
+		stop.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gstop.doClick();
+			}
+		});
+		
+	}
+	
+	public JProgressBar getThinking() {
+		return thinking;
+	}
+	
+	public JTextArea getChessManualShower() {
+		return chessManualShower;
+	}
+
+	public JButton getGstop() {
+		return gstop;
+	}
+
+	public static MainFrame getInstance(){
+		if(mainFrame==null){
+			mainFrame=new MainFrame();
+		}
+		return mainFrame;
 	}
 }

@@ -1,6 +1,6 @@
 package com.jf.algorithm;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.jf.bean.Move;
 import com.jf.config.GameConfig;
@@ -24,7 +24,7 @@ public class SearchAlgorithm {
 	 *  @param depth 搜索的深度
 	 */
 	public static int alphaBeta(ChessBoardModel chessBoardModel,int alpha,int beta,int depth){
-		int value,current=Integer.MIN_VALUE;
+		int value,best=Integer.MIN_VALUE;
 		DefaultChessBoardModel dcbm=(DefaultChessBoardModel)chessBoardModel;
 		char chessColor=dcbm.getNextStepChessColor();
 		//如果棋局结束或当前节点为叶子节点则返回评估值
@@ -32,24 +32,28 @@ public class SearchAlgorithm {
 			int evaluateScore=EvaluationFunction.evaluateChessStatus(chessColor, dcbm);
 			return evaluateScore;
 		}
-		Vector<Move> moves=GenerateMoves.generateMoves(chessBoardModel);
+		ArrayList<Move> moves=GenerateMoves.generateMoves(chessBoardModel);
 		for (Move move : moves) {
 			dcbm.makeNextMove(move);
-			value=-alphaBeta(chessBoardModel, -beta, -alpha,depth-1);
+			value=-alphaBeta(dcbm, -beta, -alpha,depth-1);
 			dcbm.unMakeMove();
-			if(value>=current){
-				current=value;
-				if(value>=alpha){
-					alpha=value;
-					bestMove=move;
+			if(value>best){
+				best=value;
+				if(best>alpha){
+					alpha=best;	
 				}
-				//beta剪枝
-				if(value>=beta)
+				if(value>=beta){
 					break;
+				}
+			}
+			if(depth==GameConfig.AILevel && value>=best){
+				bestMove=move;
 			}
 		}
-		return current;
+		return best;
 	}
+	
+	
 	/**
 	 *  getNextMoves方法，获取当前棋局局面的下一步走法(走法包含两个棋子)
 	 *  @param chessBoardModel 当前棋局的数据模型

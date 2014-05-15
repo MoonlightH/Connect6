@@ -13,7 +13,7 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new MainFrame().setVisible(true);
+				MainFrame.getInstance().setVisible(true);
 			}
 		});
 //		long end1=System.currentTimeMillis();

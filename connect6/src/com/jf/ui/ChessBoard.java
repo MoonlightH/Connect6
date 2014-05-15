@@ -2,24 +2,20 @@ package com.jf.ui;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.HashSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import com.jf.bean.ChessData;
 import com.jf.ui.event.ChessBoardModelEvent;
 import com.jf.ui.event.ChessBoardModelListener;
 import com.jf.ui.model.ChessBoardModel;
 import com.jf.ui.model.DefaultChessBoardModel;
 
 /**
- *  棋盘类，在全部应用中棋盘只有一个所以chessBoard应该为单例类，
- *  用来创建一个棋盘对象
- *  
- *  @author 蒋鹏
+ * 棋盘类，在全部应用中棋盘只有一个所以chessBoard应该为单例类，
+ * 用来创建一个棋盘对象  
+ * @author 蒋鹏
  */
 public class ChessBoard extends JPanel implements ChessBoardModelListener{
 	
@@ -48,7 +44,7 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 		int x = 16, y = 16;
 		for (int i = 0; i < 19; i++) {
 			for (int j = 0; j < 19; j++) {
-				chessPoints[i][j]=new ChessPoint(i,j);
+				chessPoints[i][j]=new ChessPoint(j,i);
 				chessPoints[i][j].setBounds(x+31*j, y+31*i, 30, 30);
 				this.add(chessPoints[i][j]);
 			}
@@ -85,18 +81,21 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 	 */
 	@Override
 	public void chessBoardChanged(ChessBoardModelEvent e) {
+		DefaultChessBoardModel dcbm=(DefaultChessBoardModel)dataModel;
 		if(e.getUpdateWay()==ChessBoardModelEvent.UPDATECHESSPOINT){
-			ChessData chessData = e.getChessData();
-			int x=chessData.getY()-1;
-			int y=chessData.getX()-1;
-			chessPoints[x][y].setChessType(chessData.getChessColor());
+			int coord = e.getCoord();
+			int x=coord/100;
+			int y=coord%100;
+			char color=dcbm.getChessColorByCoord(x, y);
+			chessPoints[y-1][x-1].setChessType(color);
 		}
 		if(e.getUpdateWay()==ChessBoardModelEvent.UPDATECHESSMODEL){
-			Vector<ChessData> chessDataArray=e.getChessDataArray();
-			for (ChessData chessData : chessDataArray) {
-				int x=chessData.getY()-1;
-				int y=chessData.getX()-1;
-				chessPoints[x][y].setChessType(chessData.getChessColor());
+			HashSet<Integer> coordSet=e.getCoordSet();
+			for (int coord : coordSet) {
+				int x=coord/100;
+				int y=coord%100;
+				char color=dcbm.getChessColorByCoord(x, y);
+				chessPoints[y-1][x-1].setChessType(color);
 			}
 		}
 	}
@@ -114,29 +113,39 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 			throw new IllegalArgumentException("cann't set a null chessBoardModel");
 		}
 		if(this.dataModel!=dataModel){
-			ChessBoardModel old=this.dataModel;
-			Vector<ChessData> changedChessDataArray=new Vector<>(50);
-			Hashtable<Integer, ChessData> newChessDataTable=((DefaultChessBoardModel)dataModel).getChessDataTable();
-			for(Enumeration<Integer> newKeys=newChessDataTable.keys();newKeys.hasMoreElements();){
-				Integer key=newKeys.nextElement();
-				ChessData newChessData=newChessDataTable.get(key);
-				changedChessDataArray.add(newChessData);
-			}
-			if(old!=null){
+			DefaultChessBoardModel oldModel=(DefaultChessBoardModel)this.dataModel;
+			DefaultChessBoardModel newModel=(DefaultChessBoardModel)dataModel;
+			char[][] newCompositionData=newModel.getCompositionData();
+			HashSet<Integer> changedCoordSet=new HashSet<>(40);
+			if(this.dataModel!=null){
+				char[][] oldCompositionData=oldModel.getCompositionData();
 				//移除添加的事件侦听器
-				old.removeChessBoardModelListener(this);
-				Hashtable<Integer, ChessData> oldChessDataTable=((DefaultChessBoardModel)old).getChessDataTable();
-				for(Enumeration<Integer> oldKeys=oldChessDataTable.keys();oldKeys.hasMoreElements();){
-					Integer key=oldKeys.nextElement();
-					ChessData newChessData=newChessDataTable.get(key);
-					if(newChessData==null){
-						changedChessDataArray.add(new ChessData(key/100,key%100,ChessPoint.NOCHESS));
+				oldModel.removeChessBoardModelListener(this);
+				for (int i = 0; i < 19; i++) {
+					for (int j = 0; j < 19; j++) {
+						char newValue=newCompositionData[i][j];
+						if(newValue!=ChessPoint.NOCHESS){
+							changedCoordSet.add((j+1)*100+(i+1));
+						}
+						char oldValue=oldCompositionData[i][j];
+						if(oldValue!=ChessPoint.NOCHESS){
+							changedCoordSet.add((j+1)*100+(i+1));
+						}
+					}
+				}
+			}else{
+				for (int i = 0; i < 19; i++) {
+					for (int j = 0; j < 19; j++) {
+						char newValue=newCompositionData[i][j];
+						if(newValue!=ChessPoint.NOCHESS){
+							changedCoordSet.add((j+1)*100+(i+1));
+						}
 					}
 				}
 			}
 			this.dataModel=dataModel;
 			this.dataModel.addChessBoardModelListener(this);
-			chessBoardChanged(new  ChessBoardModelEvent(this.dataModel,changedChessDataArray));
+			chessBoardChanged(new  ChessBoardModelEvent(this.dataModel,changedCoordSet));
 		}
 	}
 	
@@ -146,5 +155,8 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 	 */
 	public ChessBoardModel getModel(){
 		return dataModel;
+	}
+	public ChessPoint[][] getChessPoints() {
+		return chessPoints;
 	}
 }

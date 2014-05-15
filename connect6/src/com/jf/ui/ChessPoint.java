@@ -10,13 +10,11 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import com.jf.bean.ChessData;
 import com.jf.ui.model.DefaultChessBoardModel;
 
 /**
- *  ChessPoint 用来在棋盘表示棋子的落点
- *  
- *  @author 蒋鹏
+ * ChessPoint 用来在棋盘表示棋子的落点  
+ * @author 蒋鹏
  */
 public class ChessPoint extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +37,7 @@ public class ChessPoint extends JPanel {
 	private int x=0;
 	/** 棋点在棋盘上的y轴坐标 */
 	private int y=0;
+	
 	/** 鼠标事件侦听器的适配器变量 */
 	private final MouseAdapter ma=new MouseAdapter()  {
 		@Override
@@ -58,26 +57,28 @@ public class ChessPoint extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			ChessBoard currentChessBoard=ChessBoard.getInstance();
 			DefaultChessBoardModel dcbm=(DefaultChessBoardModel)currentChessBoard.getModel();
+			MainFrame mainFrame=MainFrame.getInstance();
+			char role=dcbm.getNextStepChessColor();
 			//坐标上的x是纵向的所以得颠倒x,y的值
-			int x=ChessPoint.this.y+1;
-			int y=ChessPoint.this.x+1;
-			char chessColor=dcbm.getNextStepChessColor();
-			dcbm.addChess(new ChessData(x,y,chessColor));
+			int x=ChessPoint.this.x+1;
+			int y=ChessPoint.this.y+1;
+			if(dcbm.getAllChessNumber()==0){
+				mainFrame.getChessManualShower().append("黑："+"("+x+","+y+")\n");
+			}else{
+				if(role!=dcbm.getLastStepChessColor()){
+					if(role==ChessPoint.BLACKCHESS){
+						mainFrame.getChessManualShower().append("黑："+"("+x+","+y+")");
+					} 
+					if(role==ChessPoint.WHITECHESS){
+						mainFrame.getChessManualShower().append("白："+"("+x+","+y+")");
+					}
+				}else{
+					mainFrame.getChessManualShower().append("("+x+","+y+")\n");
+				}
+			}
+			dcbm.addChess(x*100+y);
 		}
 	};
-//
-//  查询、设置变量的方法
-//
-	public char getChessType() {
-		return chessType;
-	}
-	public void setChessType(char chessType) {
-		this.chessType = chessType;
-		this.removeMouseListener(ma);
-		this.setBorder(null);
-		repaint();
-		
-	}	
 //
 //  构造方法
 //
@@ -95,8 +96,8 @@ public class ChessPoint extends JPanel {
 //  普通方法
 //
 	/**
-	 *  重写paintComponent方法,如果棋点没棋子则添加鼠标事件侦听器，
-	 *  否则移除鼠标的事件侦听器
+	 * 重写paintComponent方法,如果棋点没棋子则添加鼠标事件侦听器，
+	 * 否则移除鼠标的事件侦听器
  	 */
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -111,4 +112,20 @@ public class ChessPoint extends JPanel {
 			g.drawImage(bgImage, 0, 0, icon.getIconWidth(),icon.getIconHeight(),icon.getImageObserver());
 		}
 	}
+//
+//  属性设置或查询方法
+//
+	public char getChessType() {
+		return chessType;
+	}
+	public void setChessType(char chessType) {
+		this.chessType = chessType;
+		if(chessType==ChessPoint.NOCHESS){
+			this.addMouseListener(ma);
+		}else{
+			this.removeMouseListener(ma);
+			this.setBorder(null);
+		}
+		repaint();
+	}	
 }
