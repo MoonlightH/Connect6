@@ -26,7 +26,7 @@ public interface ChessBoardModel {
 	 */
 	public void addRoleChangeListener(RoleChangeListener l);
 	/**
-	 * 移角色变更的事件侦听
+	 * 移除角色变更的事件侦听
 	 * @param l 棋盘模型侦听器
 	 */
 	public void removeRoleChangeListener(RoleChangeListener l);
