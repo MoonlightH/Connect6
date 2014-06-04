@@ -1,8 +1,8 @@
-package com.jf.main;
+package com.jp.main;
 
 import javax.swing.SwingUtilities;
 
-import com.jf.ui.MainFrame;
+import com.jp.ui.MainFrame;
 
 public class Main {
 	/**

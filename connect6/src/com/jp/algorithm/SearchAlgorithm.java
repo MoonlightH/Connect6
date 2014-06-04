@@ -1,11 +1,11 @@
-package com.jf.algorithm;
+package com.jp.algorithm;
 
 import java.util.ArrayList;
 
-import com.jf.bean.Move;
-import com.jf.config.GameConfig;
-import com.jf.ui.model.ChessBoardModel;
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.bean.Move;
+import com.jp.config.GameConfig;
+import com.jp.ui.model.ChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
  *  SearchAlgorithm类，提供对博弈树的搜索方法

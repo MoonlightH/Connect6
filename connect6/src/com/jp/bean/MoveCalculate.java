@@ -1,19 +1,19 @@
-package com.jf.bean;
+package com.jp.bean;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
 
-import com.jf.algorithm.SearchAlgorithm;
-import com.jf.config.GameConfig;
-import com.jf.ui.BlackTimer;
-import com.jf.ui.ChessBoard;
-import com.jf.ui.ChessPoint;
-import com.jf.ui.MainFrame;
-import com.jf.ui.WhiteTimer;
-import com.jf.ui.model.ChessBoardModel;
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.algorithm.SearchAlgorithm;
+import com.jp.config.GameConfig;
+import com.jp.ui.BlackTimer;
+import com.jp.ui.ChessBoard;
+import com.jp.ui.ChessPoint;
+import com.jp.ui.MainFrame;
+import com.jp.ui.WhiteTimer;
+import com.jp.ui.model.ChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 /**
  * MoveCalculate
  */

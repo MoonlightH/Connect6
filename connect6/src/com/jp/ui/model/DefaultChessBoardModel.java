@@ -1,19 +1,18 @@
-package com.jf.ui.model;
+package com.jp.ui.model;
 
 import java.util.Stack;
 
 import javax.swing.event.EventListenerList;
 
-import com.jf.bean.Move;
+import static com.jp.ui.ChessPoint.BLACKCHESS;
+import static com.jp.ui.ChessPoint.NOCHESS;
+import static com.jp.ui.ChessPoint.WHITECHESS;
 
-import static com.jf.ui.ChessPoint.NOCHESS;
-import static com.jf.ui.ChessPoint.BLACKCHESS;
-import static com.jf.ui.ChessPoint.WHITECHESS;
-
-import com.jf.ui.event.ChessBoardModelEvent;
-import com.jf.ui.event.ChessBoardModelListener;
-import com.jf.ui.event.RoleChangeEvent;
-import com.jf.ui.event.RoleChangeListener;
+import com.jp.bean.Move;
+import com.jp.ui.event.ChessBoardModelEvent;
+import com.jp.ui.event.ChessBoardModelListener;
+import com.jp.ui.event.RoleChangeEvent;
+import com.jp.ui.event.RoleChangeListener;
 
 /**
  * 默认的棋盘类数据模型

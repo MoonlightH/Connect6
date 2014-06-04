@@ -1,11 +1,12 @@
-package com.jf.bean;
+package com.jp.bean;
 
 import java.util.Vector;
 
-import com.jf.ui.ChessPoint;
-import static com.jf.ui.ChessPoint.NOCHESS;
-import static com.jf.ui.ChessPoint.BLACKCHESS;
-import static com.jf.ui.ChessPoint.WHITECHESS;
+import com.jp.ui.ChessPoint;
+
+import static com.jp.ui.ChessPoint.BLACKCHESS;
+import static com.jp.ui.ChessPoint.NOCHESS;
+import static com.jp.ui.ChessPoint.WHITECHESS;
 
 /**
  *  Road类，通过定义“路”来解决六子棋棋形判断的问题

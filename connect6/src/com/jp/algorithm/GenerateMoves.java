@@ -1,4 +1,4 @@
-package com.jf.algorithm;
+package com.jp.algorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.jf.bean.Move;
-import com.jf.config.GameConfig;
-import com.jf.ui.ChessPoint;
-import com.jf.ui.model.ChessBoardModel;
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.bean.Move;
+import com.jp.config.GameConfig;
+import com.jp.ui.ChessPoint;
+import com.jp.ui.model.ChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
  * GenerateMoves走法生成类，根据当前棋局局势生成相关博弈树节点

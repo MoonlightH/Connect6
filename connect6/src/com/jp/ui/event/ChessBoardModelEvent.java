@@ -1,9 +1,9 @@
-package com.jf.ui.event;
+package com.jp.ui.event;
 
 import java.util.EventObject;
 import java.util.HashSet;
 
-import com.jf.ui.model.ChessBoardModel;
+import com.jp.ui.model.ChessBoardModel;
 
 /**
  * ChessBoardModelEvent棋盘数据模型的事件

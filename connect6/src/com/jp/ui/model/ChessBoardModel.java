@@ -1,9 +1,9 @@
-package com.jf.ui.model;
+package com.jp.ui.model;
 
-import com.jf.ui.event.ChessBoardModelEvent;
-import com.jf.ui.event.ChessBoardModelListener;
-import com.jf.ui.event.RoleChangeEvent;
-import com.jf.ui.event.RoleChangeListener;
+import com.jp.ui.event.ChessBoardModelEvent;
+import com.jp.ui.event.ChessBoardModelListener;
+import com.jp.ui.event.RoleChangeEvent;
+import com.jp.ui.event.RoleChangeListener;
 
 /**
  * ChessBoardModel 棋盘数据模型接口

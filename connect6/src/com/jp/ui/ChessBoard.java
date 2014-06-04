@@ -1,4 +1,4 @@
-package com.jf.ui;
+package com.jp.ui;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -7,10 +7,10 @@ import java.util.HashSet;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import com.jf.ui.event.ChessBoardModelEvent;
-import com.jf.ui.event.ChessBoardModelListener;
-import com.jf.ui.model.ChessBoardModel;
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.ui.event.ChessBoardModelEvent;
+import com.jp.ui.event.ChessBoardModelListener;
+import com.jp.ui.model.ChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
  * 棋盘类，在全部应用中棋盘只有一个所以chessBoard应该为单例类，

@@ -1,11 +1,11 @@
-package com.jf.algorithm;
+package com.jp.algorithm;
 
 import java.util.Vector;
 
-import com.jf.bean.Road;
-import com.jf.ui.ChessPoint;
-import com.jf.ui.model.ChessBoardModel;
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.bean.Road;
+import com.jp.ui.ChessPoint;
+import com.jp.ui.model.ChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
  * EvaluationFunction评估函数用来评估当前棋局的局势

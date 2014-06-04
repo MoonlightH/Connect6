@@ -1,4 +1,4 @@
-package com.jf.config;
+package com.jp.config;
 
 /**
  *   六子棋游戏的配置信息类

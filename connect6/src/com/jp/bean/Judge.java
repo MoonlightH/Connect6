@@ -1,20 +1,20 @@
-package com.jf.bean;
+package com.jp.bean;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import com.jf.algorithm.EvaluationFunction;
-import com.jf.ui.BlackTimer;
-import com.jf.ui.ChessBoard;
-import com.jf.ui.ChessPoint;
-import com.jf.ui.MainFrame;
-import com.jf.ui.WhiteTimer;
-import com.jf.ui.event.ChessBoardModelEvent;
-import com.jf.ui.event.ChessBoardModelListener;
-import com.jf.ui.event.RoleChangeEvent;
-import com.jf.ui.event.RoleChangeListener;
-import com.jf.ui.model.ChessBoardModel;
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.algorithm.EvaluationFunction;
+import com.jp.ui.BlackTimer;
+import com.jp.ui.ChessBoard;
+import com.jp.ui.ChessPoint;
+import com.jp.ui.MainFrame;
+import com.jp.ui.WhiteTimer;
+import com.jp.ui.event.ChessBoardModelEvent;
+import com.jp.ui.event.ChessBoardModelListener;
+import com.jp.ui.event.RoleChangeEvent;
+import com.jp.ui.event.RoleChangeListener;
+import com.jp.ui.model.ChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
  * Judge类，裁判对象类，用于在游戏过程中接管游戏

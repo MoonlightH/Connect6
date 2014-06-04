@@ -1,4 +1,4 @@
-package com.jf.ui;
+package com.jp.ui;
 
 import java.awt.Desktop;
 import java.awt.Insets;
@@ -39,11 +39,11 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
-import com.jf.bean.Judge;
-import com.jf.config.GameConfig;
-import com.jf.ui.event.RoleChangeEvent;
-import com.jf.ui.model.ChessBoardModel;
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.bean.Judge;
+import com.jp.config.GameConfig;
+import com.jp.ui.event.RoleChangeEvent;
+import com.jp.ui.model.ChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
  * Áù×ÓÆåÖ÷´°Ìå 

@@ -1,4 +1,4 @@
-package com.jf.ui.event;
+package com.jp.ui.event;
 
 import java.util.EventListener;
 

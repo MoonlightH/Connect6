@@ -1,4 +1,4 @@
-package com.jf.ui;
+package com.jp.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,7 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import com.jf.ui.model.DefaultChessBoardModel;
+import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
  * ChessPoint 用来在棋盘表示棋子的落点  
