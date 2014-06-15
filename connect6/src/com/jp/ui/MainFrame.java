@@ -97,6 +97,9 @@ public class MainFrame extends JFrame{
 		openNewGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(!gstart.isEnabled()){
+					gstop.doClick();
+				}
 				ChessBoard.getInstance().setModel(new DefaultChessBoardModel());
 				chessManualShower.setText("");
 			}

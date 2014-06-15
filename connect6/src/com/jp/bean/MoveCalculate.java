@@ -15,7 +15,8 @@ import com.jp.ui.WhiteTimer;
 import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 /**
- * MoveCalculate
+ * MoveCalculate¿‡
+ * @author ΩØ≈Ù
  */
 public class MoveCalculate extends SwingWorker<Move, Object> {
 	@Override
