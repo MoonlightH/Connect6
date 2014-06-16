@@ -6,38 +6,38 @@ import com.jp.ui.event.RoleChangeEvent;
 import com.jp.ui.event.RoleChangeListener;
 
 /**
- * ChessBoardModel ÆåÅÌÊı¾İÄ£ĞÍ½Ó¿Ú
- * @author ½¯Åô
+ * ChessBoardModel æ£‹ç›˜æ•°æ®æ¨¡å‹æ¥å£
+ * @author è’‹é¹
  */
 public interface ChessBoardModel {
 	/**
-	 * ÎªÆåÅÌÊı¾İÄ£ĞÍÌí¼ÓÊÂ¼şÕìÌı
-	 * @param l ÆåÅÌÄ£ĞÍÕìÌıÆ÷
+	 * ä¸ºæ£‹ç›˜æ•°æ®æ¨¡å‹æ·»åŠ äº‹ä»¶ä¾¦å¬
+	 * @param l æ£‹ç›˜æ¨¡å‹ä¾¦å¬å™¨
 	 */
 	public void addChessBoardModelListener(ChessBoardModelListener l);
 	/**
-	 * ÒÆ³ıÆåÅÌÊı¾İÄ£ĞÍµÄÊÂ¼şÕìÌı
-	 * @param l ÆåÅÌÄ£ĞÍÕìÌıÆ÷
+	 * ç§»é™¤æ£‹ç›˜æ•°æ®æ¨¡å‹çš„äº‹ä»¶ä¾¦å¬
+	 * @param l æ£‹ç›˜æ¨¡å‹ä¾¦å¬å™¨
 	 */
 	public void removeChessBoardModelListener(ChessBoardModelListener l);
 	/**
-	 * Îª½ÇÉ«±ä¸üÌí¼ÓÊÂ¼şÕìÌı
-	 * @param l ÆåÅÌÄ£ĞÍÕìÌıÆ÷
+	 * ä¸ºè§’è‰²å˜æ›´æ·»åŠ äº‹ä»¶ä¾¦å¬
+	 * @param l æ£‹ç›˜æ¨¡å‹ä¾¦å¬å™¨
 	 */
 	public void addRoleChangeListener(RoleChangeListener l);
 	/**
-	 * ÒÆ³ı½ÇÉ«±ä¸üµÄÊÂ¼şÕìÌı
-	 * @param l ÆåÅÌÄ£ĞÍÕìÌıÆ÷
+	 * ç§»é™¤è§’è‰²å˜æ›´çš„äº‹ä»¶ä¾¦å¬
+	 * @param l æ£‹ç›˜æ¨¡å‹ä¾¦å¬å™¨
 	 */
 	public void removeRoleChangeListener(RoleChangeListener l);
 	/**
-	 * ´¥·¢ÆåÅÌÄ£ĞÍÊÂ¼ş
-	 * @param e ÆåÅÌÊÂ¼ş¶ÔÏó
+	 * è§¦å‘æ£‹ç›˜æ¨¡å‹äº‹ä»¶
+	 * @param e æ£‹ç›˜äº‹ä»¶å¯¹è±¡
 	 */
 	public void notifyChessBoardModelEvent(ChessBoardModelEvent e);
 	/**
-	 * ´¥·¢½ÇÉ«±ä¸üÊÂ¼ş
-	 * @param e ½ÇÉ«±ä¸üÊÂ¼ş¶ÔÏó
+	 * è§¦å‘è§’è‰²å˜æ›´äº‹ä»¶
+	 * @param e è§’è‰²å˜æ›´äº‹ä»¶å¯¹è±¡
 	 */
 	public void notifyRoleChangeEvent(RoleChangeEvent e);
 }

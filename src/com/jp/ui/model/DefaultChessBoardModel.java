@@ -15,30 +15,30 @@ import com.jp.ui.event.RoleChangeEvent;
 import com.jp.ui.event.RoleChangeListener;
 
 /**
- * Ä¬ÈÏµÄÆåÅÌÀàÊı¾İÄ£ĞÍ
+ * é»˜è®¤çš„æ£‹ç›˜ç±»æ•°æ®æ¨¡å‹
  * 
- * @author ½¯Åô
+ * @author è’‹é¹
  */
 public class DefaultChessBoardModel implements ChessBoardModel {
 //
-// ÊµÀıÊôĞÔ
+// å®ä¾‹å±æ€§
 //
-	/** ÊÂ¼şÕìÌıÆ÷ÁĞ±íÊµÀı£¬ÓÃÀ´´æ´¢ĞèÒªÌí¼ÓµÄÊÂ¼ş */
+	/** äº‹ä»¶ä¾¦å¬å™¨åˆ—è¡¨å®ä¾‹ï¼Œç”¨æ¥å­˜å‚¨éœ€è¦æ·»åŠ çš„äº‹ä»¶ */
 	private EventListenerList repository = new EventListenerList();
-	/** ÆåÅÌ¾ÖÊÆÊı×é */
+	/** æ£‹ç›˜å±€åŠ¿æ•°ç»„ */
 	private char[][] compositionData = new char[19][19];
-	/** ÆåÅÌÉÏÏÂÆåµÄË³ĞòÕ» */
+	/** æ£‹ç›˜ä¸Šä¸‹æ£‹çš„é¡ºåºæ ˆ */
 	private Stack<Integer> play_stack = new Stack<>();
-	/** ÍÑÀëÕ½³¡·¶Î§µÄ·¶Î§ */
+	/** è„±ç¦»æˆ˜åœºèŒƒå›´çš„èŒƒå›´ */
 	private int xMin = 20, xMax = 0, yMin = 20, yMax = 0;
-	/** µ±Ç°ÏÂÆå½ÇÉ« */
+	/** å½“å‰ä¸‹æ£‹è§’è‰² */
 	private char currentRole=BLACKCHESS;
 
 //
-// ¹¹Ôì·½·¨
+// æ„é€ æ–¹æ³•
 //
 	/**
-	 * ÎŞ²Î¹¹Ôì·½·¨,³õÊ¼»¯ÆåÅÌÊı¾İÄ£ĞÍ
+	 * æ— å‚æ„é€ æ–¹æ³•,åˆå§‹åŒ–æ£‹ç›˜æ•°æ®æ¨¡å‹
 	 */
 	public DefaultChessBoardModel() {
 		for (int i = 0; i < 19; i++) {
@@ -49,12 +49,12 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 //
-// ÆÕÍ¨·½·¨
+// æ™®é€šæ–¹æ³•
 //
 	/**
-	 * ÏòÊÂ¼şÕìÌıÆ÷ÁĞ±íÖĞÌí¼ÓÆåÅÌÊı¾İÄ£ĞÍÊÂ¼şÕìÌıÆ÷
+	 * å‘äº‹ä»¶ä¾¦å¬å™¨åˆ—è¡¨ä¸­æ·»åŠ æ£‹ç›˜æ•°æ®æ¨¡å‹äº‹ä»¶ä¾¦å¬å™¨
 	 * 
-	 * @param l Ìí¼ÓµÄÆåÅÌÊı¾İÄ£ĞÍÊÂ¼şÕìÌıÆ÷
+	 * @param l æ·»åŠ çš„æ£‹ç›˜æ•°æ®æ¨¡å‹äº‹ä»¶ä¾¦å¬å™¨
 	 */
 	@Override
 	public void addChessBoardModelListener(ChessBoardModelListener l) {
@@ -62,9 +62,9 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 	/**
-	 * ´ÓÊÂ¼şÕìÌıÆ÷ÁĞ±íÖĞÒÆ³ıÆåÅÌÊı¾İÄ£ĞÍÊÂ¼şÕìÌıÆ÷
+	 * ä»äº‹ä»¶ä¾¦å¬å™¨åˆ—è¡¨ä¸­ç§»é™¤æ£‹ç›˜æ•°æ®æ¨¡å‹äº‹ä»¶ä¾¦å¬å™¨
 	 * 
-	 * @param l ÒªÉ¾³ıµÄÆåÅÌÊı¾İÄ£ĞÍÊÂ¼şÕìÌıÆ÷
+	 * @param l è¦åˆ é™¤çš„æ£‹ç›˜æ•°æ®æ¨¡å‹äº‹ä»¶ä¾¦å¬å™¨
 	 */
 	@Override
 	public void removeChessBoardModelListener(ChessBoardModelListener l) {
@@ -72,9 +72,9 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 	
 	/**
-	 * ´ÓÊÂ¼şÕìÌıÆ÷ÁĞ±íÖĞÌí¼Ó½ÇÉ«±ä¸üÊÂ¼şÕìÌıÆ÷
+	 * ä»äº‹ä»¶ä¾¦å¬å™¨åˆ—è¡¨ä¸­æ·»åŠ è§’è‰²å˜æ›´äº‹ä»¶ä¾¦å¬å™¨
 	 * 
-	 * @param l Ìí¼ÓµÄ½ÇÉ«±ä¸üÊÂ¼şÕìÌıÆ÷
+	 * @param l æ·»åŠ çš„è§’è‰²å˜æ›´äº‹ä»¶ä¾¦å¬å™¨
 	 */
 	@Override
 	public void addRoleChangeListener(RoleChangeListener l) {
@@ -82,27 +82,27 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 	
 	/**
-	 * ´ÓÊÂ¼şÕìÌıÆ÷ÁĞ±íÖĞÒÆ³ıÆåÅÌÊı¾İÄ£ĞÍÊÂ¼şÕìÌıÆ÷
+	 * ä»äº‹ä»¶ä¾¦å¬å™¨åˆ—è¡¨ä¸­ç§»é™¤æ£‹ç›˜æ•°æ®æ¨¡å‹äº‹ä»¶ä¾¦å¬å™¨
 	 * 
-	 * @param l ÒÆ³ı½ÇÉ«±ä¸üÊÂ¼şÕìÌıÆ÷
+	 * @param l ç§»é™¤è§’è‰²å˜æ›´äº‹ä»¶ä¾¦å¬å™¨
 	 */
 	@Override
 	public void removeRoleChangeListener(RoleChangeListener l) {
 		repository.remove(RoleChangeListener.class, l);
 	};
 	/**
-	 * ´¥·¢ÊÂ¼şÕìÌıÆ÷ÁĞ±íÖĞµÄÆåÅÌÊı¾İÄ£ĞÍÊÂ¼şÀàĞÍµÄÕìÌıÆ÷
+	 * è§¦å‘äº‹ä»¶ä¾¦å¬å™¨åˆ—è¡¨ä¸­çš„æ£‹ç›˜æ•°æ®æ¨¡å‹äº‹ä»¶ç±»å‹çš„ä¾¦å¬å™¨
 	 * 
-	 * @param e ´¥·¢µÄÊÂ¼şÊµÀı
+	 * @param e è§¦å‘çš„äº‹ä»¶å®ä¾‹
 	 */
 	@Override
 	public void notifyChessBoardModelEvent(ChessBoardModelEvent e) {
 		if (repository == null) {
 			return;
 		}
-		// È·±£·µ»ØÒ»¸ö·Ç¿ÕÊı×é
+		// ç¡®ä¿è¿”å›ä¸€ä¸ªéç©ºæ•°ç»„
 		Object[] listeners = repository.getListenerList();
-		// ÒÔµ¹ĞğµÄ·½Ê½´¥·¢ÊÂ¼ş
+		// ä»¥å€’å™çš„æ–¹å¼è§¦å‘äº‹ä»¶
 		for (int i = listeners.length - 2; i >= 0; i -= 2) {
 			if (listeners[i] == ChessBoardModelListener.class) {
 				((ChessBoardModelListener) listeners[i + 1])
@@ -112,18 +112,18 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 	
 	/**
-	 * ´¥·¢ÊÂ¼şÕìÌıÆ÷ÁĞ±íÖĞµÄ½ÇÉ«±ä¸üÀàĞÍµÄÕìÌıÆ÷
+	 * è§¦å‘äº‹ä»¶ä¾¦å¬å™¨åˆ—è¡¨ä¸­çš„è§’è‰²å˜æ›´ç±»å‹çš„ä¾¦å¬å™¨
 	 * 
-	 * @param e ´¥·¢µÄÊÂ¼şÊµÀı
+	 * @param e è§¦å‘çš„äº‹ä»¶å®ä¾‹
 	 */
 	@Override
 	public void notifyRoleChangeEvent(RoleChangeEvent e){
 		if (repository == null) {
 			return;
 		}
-		// È·±£·µ»ØÒ»¸ö·Ç¿ÕÊı×é
+		// ç¡®ä¿è¿”å›ä¸€ä¸ªéç©ºæ•°ç»„
 		Object[] listeners = repository.getListenerList();
-		// ÒÔµ¹ĞğµÄ·½Ê½´¥·¢ÊÂ¼ş
+		// ä»¥å€’å™çš„æ–¹å¼è§¦å‘äº‹ä»¶
 		for (int i = listeners.length - 2; i >= 0; i -= 2) {
 			if (listeners[i] == RoleChangeListener.class) {
 				((RoleChangeListener) listeners[i + 1]).roleChanged(e);
@@ -131,9 +131,9 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 		}
 	}
 	/**
-	 * addChessÌí¼ÓÆå×Ó(¸Ã·½·¨»á´¥·¢ËùÓĞÌí¼ÓÔÚ¸ÃÄ£ĞÍÉÏµÄÆå×Ó¸Ä±äÊÂ¼ş)
+	 * addChessæ·»åŠ æ£‹å­(è¯¥æ–¹æ³•ä¼šè§¦å‘æ‰€æœ‰æ·»åŠ åœ¨è¯¥æ¨¡å‹ä¸Šçš„æ£‹å­æ”¹å˜äº‹ä»¶)
 	 * 
-	 * @param coords Æåµã×ø±êµÄ¸´ºÏÖµ£¨coords=x*100+y£©
+	 * @param coords æ£‹ç‚¹åæ ‡çš„å¤åˆå€¼ï¼ˆcoords=x*100+yï¼‰
 	 */
 	public void addChess(int coord) {
 		int x = coord/100;
@@ -150,9 +150,9 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 		if (y > yMax) {
 			yMax = y;
 		}
-		// ÏòÆå¾Ö¾ÖÊÆÊı×éÖĞÌí¼ÓÆå×Ó
+		// å‘æ£‹å±€å±€åŠ¿æ•°ç»„ä¸­æ·»åŠ æ£‹å­
 		compositionData[y - 1][x - 1] = getNextStepChessColor();
-		// ÏòÏÂÆåµÄË³ĞòÕ»ÖĞÌí¼ÓÆå×Ó
+		// å‘ä¸‹æ£‹çš„é¡ºåºæ ˆä¸­æ·»åŠ æ£‹å­
 		play_stack.push(coord);
 		notifyChessBoardModelEvent(new ChessBoardModelEvent(this, coord));
 		char role=getNextStepChessColor();
@@ -163,9 +163,9 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Æå¾ÖËùÓĞÆå×ÓµÄ×ÜÊıÄ¿
+	 * è·å–å½“å‰æ£‹å±€æ‰€æœ‰æ£‹å­çš„æ€»æ•°ç›®
 	 * 
-	 * @return count µ±Ç°Æå×Ó×ÜÊıÄ¿
+	 * @return count å½“å‰æ£‹å­æ€»æ•°ç›®
 	 */
 	public int getAllChessNumber() {
 		int count = play_stack.size();
@@ -173,9 +173,9 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Æå¾Ö¾ÖÊÆÏÂ£¬ÏÂÒ»¸ö×ÓµÄÑÕÉ«
+	 * è·å–å½“å‰æ£‹å±€å±€åŠ¿ä¸‹ï¼Œä¸‹ä¸€ä¸ªå­çš„é¢œè‰²
 	 * 
-	 * @return chessColor µ±Ç°ÒªÏÂµÄÆå×ÓµÄÑÕÉ«
+	 * @return chessColor å½“å‰è¦ä¸‹çš„æ£‹å­çš„é¢œè‰²
 	 */
 	public char getNextStepChessColor() {
 		char chessColor = NOCHESS;
@@ -194,9 +194,9 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Æå¾Ö¾ÖÊÆÏÂ£¬ÏÂµÄ×îºóÒ»¸ö×ÓµÄÑÕÉ«
+	 * è·å–å½“å‰æ£‹å±€å±€åŠ¿ä¸‹ï¼Œä¸‹çš„æœ€åä¸€ä¸ªå­çš„é¢œè‰²
 	 * 
-	 * @return chessColor ×îºóÏÂµÄÆå×ÓµÄÑÕÉ«
+	 * @return chessColor æœ€åä¸‹çš„æ£‹å­çš„é¢œè‰²
 	 */
 	public char getLastStepChessColor() {
 		char chessColor = NOCHESS;
@@ -215,19 +215,19 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 	/**
-	 * ¸ù¾İÆåµã×ø±ê»ñÈ¡Æå×ÓÑÕÉ«
+	 * æ ¹æ®æ£‹ç‚¹åæ ‡è·å–æ£‹å­é¢œè‰²
 	 * 
-	 * @param x,y ÆåµãµÄºá×İ×ø±ê
-	 * @return color Æå×ÓµÄÑÕÉ«
+	 * @param x,y æ£‹ç‚¹çš„æ¨ªçºµåæ ‡
+	 * @return color æ£‹å­çš„é¢œè‰²
 	 */
 	public char getChessColorByCoord(int x,int y){
 		char color=compositionData[y-1][x-1];
 		return color;
 	}
 	/**
-	 * Ö´ĞĞÏÂÒ»»ØºÏ×ß·¨
+	 * æ‰§è¡Œä¸‹ä¸€å›åˆèµ°æ³•
 	 * 
-	 * @param move Ò»»ØºÏ×ß·¨
+	 * @param move ä¸€å›åˆèµ°æ³•
 	 */
 	public void makeNextMove(Move move) {
 		for (int coord : move.getCoordArray()) {
@@ -236,7 +236,7 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 	/**
-	 * ³·Ïû±¾»ØºÏ×ß·¨ËùÏÂÆå×Ó
+	 * æ’¤æ¶ˆæœ¬å›åˆèµ°æ³•æ‰€ä¸‹æ£‹å­
 	 */
 	public void unMakeMove() {
 		for (int i = 0; i < 2; i++) {
@@ -245,33 +245,33 @@ public class DefaultChessBoardModel implements ChessBoardModel {
 	}
 
 	/**
-	 * ÏÂÒ»¸öÆå×Ó
+	 * ä¸‹ä¸€ä¸ªæ£‹å­
 	 * 
 	 * @param coord
-	 *            Æåµã×ø±ê
+	 *            æ£‹ç‚¹åæ ‡
 	 */
 	public void makeChess(int coord) {
 		int x=coord/100;
 		int y=coord%100;
-		// ÏòÆå¾Ö¾ÖÊÆÊı×éÖĞÌí¼ÓÆå×Ó
+		// å‘æ£‹å±€å±€åŠ¿æ•°ç»„ä¸­æ·»åŠ æ£‹å­
 		compositionData[y-1][x-1] = getNextStepChessColor();
-		// ÏòÏÂÆåµÄË³ĞòÕ»ÖĞÌí¼ÓÆå×Ó
+		// å‘ä¸‹æ£‹çš„é¡ºåºæ ˆä¸­æ·»åŠ æ£‹å­
 		play_stack.push(coord);
 	}
 
 	/**
-	 * ÒÆ³ıÒ»¸öÆå×Ó
+	 * ç§»é™¤ä¸€ä¸ªæ£‹å­
 	 */
 	public void unMakeChess() {
-		// ´ÓÏÂÆåË³ĞòÕ»ÖĞµ¯³öÌí¼ÓµÄÆå×Ó
+		// ä»ä¸‹æ£‹é¡ºåºæ ˆä¸­å¼¹å‡ºæ·»åŠ çš„æ£‹å­
 		int coord = play_stack.pop();
 		int x=coord/100;
 		int y=coord%100;
-		// ´ÓÒÑÏÂÆå×ÓhashÁĞ±íÖĞÒÆ³ıÌí¼ÓµÄÆå×Ó
+		// ä»å·²ä¸‹æ£‹å­hashåˆ—è¡¨ä¸­ç§»é™¤æ·»åŠ çš„æ£‹å­
 		compositionData[y-1][x-1] = NOCHESS;
 	}
 //
-// ÊôĞÔÉèÖÃ»ò²éÑ¯µ½·½·¨
+// å±æ€§è®¾ç½®æˆ–æŸ¥è¯¢åˆ°æ–¹æ³•
 //
 	public EventListenerList getRepository() {
 		return repository;

@@ -6,36 +6,36 @@ import java.util.HashSet;
 import com.jp.ui.model.ChessBoardModel;
 
 /**
- * ChessBoardModelEventÆåÅÌÊı¾İÄ£ĞÍµÄÊÂ¼ş
- * @author ½¯Åô
+ * ChessBoardModelEventæ£‹ç›˜æ•°æ®æ¨¡å‹çš„äº‹ä»¶
+ * @author è’‹é¹
  */
 public class ChessBoardModelEvent extends EventObject{
 
 	private static final long serialVersionUID = 1L;
-	/** Ö»¸üĞÂµ¥¸öÆåµã */
+	/** åªæ›´æ–°å•ä¸ªæ£‹ç‚¹ */
 	public final static int UPDATECHESSPOINT=0;
-	/** ¸üĞÂÕû¸öÆåÅÌÊı¾İÄ£ĞÍ */
+	/** æ›´æ–°æ•´ä¸ªæ£‹ç›˜æ•°æ®æ¨¡å‹ */
 	public final static int UPDATECHESSMODEL=1;
-	/** ĞèÒª¸üĞÂµÄµ¥¸öÆåµã×ø±ê¸´ºÏÖµ */
+	/** éœ€è¦æ›´æ–°çš„å•ä¸ªæ£‹ç‚¹åæ ‡å¤åˆå€¼ */
 	private Integer coord;
-	/** ĞèÒª¸üĞÂµÄÆåµã×ø±ê¸´ºÏÖµ¼¯ºÏ */
+	/** éœ€è¦æ›´æ–°çš„æ£‹ç‚¹åæ ‡å¤åˆå€¼é›†åˆ */
 	private HashSet<Integer> coordSet;
-	//¸úĞÂÆåÅÌµÄÀàĞÍ
+	//è·Ÿæ–°æ£‹ç›˜çš„ç±»å‹
 	private int updateWay=-1;
 //
-//  ¹¹Ôì·½·¨
+//  æ„é€ æ–¹æ³•
 //
 	/**
-	 * ¹¹Ôì·½·¨µÄ²ÎÊıº¬ÓĞÆå×ÓÊı¾İÄ£ĞÍ
-	 * @param source ÊÂ¼şÔ´¶ÔÏó
+	 * æ„é€ æ–¹æ³•çš„å‚æ•°å«æœ‰æ£‹å­æ•°æ®æ¨¡å‹
+	 * @param source äº‹ä»¶æºå¯¹è±¡
 	 */
 	public ChessBoardModelEvent(ChessBoardModel source) {
 		super(source);
 	}
 	/**
-	 * ¹¹Ôì·½·¨µÄ²ÎÊıº¬ÓĞÆå×ÓÊı¾İÄ£ĞÍ
-	 * @param source ÊÂ¼şÔ´¶ÔÏó
-	 * @param coord Æåµã×ø±ê
+	 * æ„é€ æ–¹æ³•çš„å‚æ•°å«æœ‰æ£‹å­æ•°æ®æ¨¡å‹
+	 * @param source äº‹ä»¶æºå¯¹è±¡
+	 * @param coord æ£‹ç‚¹åæ ‡
 	 */
 	public ChessBoardModelEvent(ChessBoardModel source,Integer coord) {
 		super(source);
@@ -43,9 +43,9 @@ public class ChessBoardModelEvent extends EventObject{
 		updateWay=UPDATECHESSPOINT;
 	}
 	/**
-	 * ¹¹Ôì·½·¨²ÎÊı°üº¬¸Ä±äµÄÆå×ÓÊı¾İÄ£ĞÍÊı×é
-	 * @param source ÊÂ¼şÔ´¶ÔÏó
-	 * @param coordSet Æåµã×ø±ê¼¯ºÏ
+	 * æ„é€ æ–¹æ³•å‚æ•°åŒ…å«æ”¹å˜çš„æ£‹å­æ•°æ®æ¨¡å‹æ•°ç»„
+	 * @param source äº‹ä»¶æºå¯¹è±¡
+	 * @param coordSet æ£‹ç‚¹åæ ‡é›†åˆ
 	 */
 	public ChessBoardModelEvent(ChessBoardModel source,HashSet<Integer> coordSet) {
 		super(source);
@@ -53,7 +53,7 @@ public class ChessBoardModelEvent extends EventObject{
 		updateWay=UPDATECHESSMODEL;
 	}
 //
-//  ²éÑ¯·½·¨
+//  æŸ¥è¯¢æ–¹æ³•
 //
 	public Integer getCoord() {
 		return coord;

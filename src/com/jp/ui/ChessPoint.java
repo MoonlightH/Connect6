@@ -13,43 +13,43 @@ import javax.swing.JPanel;
 import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
- * ChessPoint ÓÃÀ´ÔÚÆåÅÌ±íÊ¾Æå×ÓµÄÂäµã  
- * @author ½¯Åô
+ * ChessPoint ç”¨æ¥åœ¨æ£‹ç›˜è¡¨ç¤ºæ£‹å­çš„è½ç‚¹  
+ * @author è’‹é¹
  */
 public class ChessPoint extends JPanel {
 	private static final long serialVersionUID = 1L;
-	/** BLACKCHESS±íÊ¾µ±Ç°ÆåµãÊÇºÚ×Ó */
+	/** BLACKCHESSè¡¨ç¤ºå½“å‰æ£‹ç‚¹æ˜¯é»‘å­ */
 	public final static char BLACKCHESS='b';
-	/** WHITECHESS±íÊ¾µ±Ç°ÆåµãÊÇ°××Ó */
+	/** WHITECHESSè¡¨ç¤ºå½“å‰æ£‹ç‚¹æ˜¯ç™½å­ */
 	public final static char WHITECHESS='w';
-	/** NOCHESS±íÊ¾µ±Ç°ÆåµãÃ»ÓĞÆå×Ó */
+	/** NOCHESSè¡¨ç¤ºå½“å‰æ£‹ç‚¹æ²¡æœ‰æ£‹å­ */
 	public final static char NOCHESS='n'; 
-	/** BLACKICON±íÊ¾ºÚ×ÓÍ¼Æ¬¶ÔÏó */
+	/** BLACKICONè¡¨ç¤ºé»‘å­å›¾ç‰‡å¯¹è±¡ */
 	public final static ImageIcon BLACKICON=new ImageIcon("./images/blackchess.png");
-	/** WHITEICON±íÊ¾°××ÓÍ¼Æ¬¶ÔÏó */
+	/** WHITEICONè¡¨ç¤ºç™½å­å›¾ç‰‡å¯¹è±¡ */
 	public final static ImageIcon WHITEICON=new ImageIcon("./images/whitechess.png");
 //
-//  ÊµÀı±äÁ¿
+//  å®ä¾‹å˜é‡
 //
-	/** ¸ÃÆåµã´¦Æå×ÓµÄÀàĞÍ */
+	/** è¯¥æ£‹ç‚¹å¤„æ£‹å­çš„ç±»å‹ */
 	private char chessType = NOCHESS;
-	/** ÆåµãÔÚÆåÅÌÉÏµÄxÖá×ø±ê */
+	/** æ£‹ç‚¹åœ¨æ£‹ç›˜ä¸Šçš„xè½´åæ ‡ */
 	private int x=0;
-	/** ÆåµãÔÚÆåÅÌÉÏµÄyÖá×ø±ê */
+	/** æ£‹ç‚¹åœ¨æ£‹ç›˜ä¸Šçš„yè½´åæ ‡ */
 	private int y=0;
 	
-	/** Êó±êÊÂ¼şÕìÌıÆ÷µÄÊÊÅäÆ÷±äÁ¿ */
+	/** é¼ æ ‡äº‹ä»¶ä¾¦å¬å™¨çš„é€‚é…å™¨å˜é‡ */
 	private final MouseAdapter ma=new MouseAdapter()  {
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// µ±Êó±êÒÆÈëpanelÊ±ÏÔÊ¾±ß¿ò
+			// å½“é¼ æ ‡ç§»å…¥panelæ—¶æ˜¾ç¤ºè¾¹æ¡†
 			if(ChessPoint.this.chessType==NOCHESS)
 				ChessPoint.this.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
 		}
 		
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// µ±Êó±êÒÆ³ıpanelÊ±±ß¿ò²»¿É¼û
+			// å½“é¼ æ ‡ç§»é™¤panelæ—¶è¾¹æ¡†ä¸å¯è§
 			ChessPoint.this.setBorder(null);
 		}
 		
@@ -59,18 +59,18 @@ public class ChessPoint extends JPanel {
 			DefaultChessBoardModel dcbm=(DefaultChessBoardModel)currentChessBoard.getModel();
 			MainFrame mainFrame=MainFrame.getInstance();
 			char role=dcbm.getNextStepChessColor();
-			//×ø±êÉÏµÄxÊÇ×İÏòµÄËùÒÔµÃµßµ¹x,yµÄÖµ
+			//åæ ‡ä¸Šçš„xæ˜¯çºµå‘çš„æ‰€ä»¥å¾—é¢ å€’x,yçš„å€¼
 			int x=ChessPoint.this.x+1;
 			int y=ChessPoint.this.y+1;
 			if(dcbm.getAllChessNumber()==0){
-				mainFrame.getChessManualShower().append("ºÚ£º"+"("+x+","+y+")\n");
+				mainFrame.getChessManualShower().append("é»‘ï¼š"+"("+x+","+y+")\n");
 			}else{
 				if(role!=dcbm.getLastStepChessColor()){
 					if(role==ChessPoint.BLACKCHESS){
-						mainFrame.getChessManualShower().append("ºÚ£º"+"("+x+","+y+")");
+						mainFrame.getChessManualShower().append("é»‘ï¼š"+"("+x+","+y+")");
 					} 
 					if(role==ChessPoint.WHITECHESS){
-						mainFrame.getChessManualShower().append("°×£º"+"("+x+","+y+")");
+						mainFrame.getChessManualShower().append("ç™½ï¼š"+"("+x+","+y+")");
 					}
 				}else{
 					mainFrame.getChessManualShower().append("("+x+","+y+")\n");
@@ -80,10 +80,10 @@ public class ChessPoint extends JPanel {
 		}
 	};
 //
-//  ¹¹Ôì·½·¨
+//  æ„é€ æ–¹æ³•
 //
 	/**
-	 *  ÆåµãÀàµÄ¹¹Ôì·½·¨
+	 *  æ£‹ç‚¹ç±»çš„æ„é€ æ–¹æ³•
 	 */
 	public ChessPoint(int x,int y) {
 		this.setBorder(null);
@@ -93,11 +93,11 @@ public class ChessPoint extends JPanel {
 		this.addMouseListener(ma);
 	}
 //
-//  ÆÕÍ¨·½·¨
+//  æ™®é€šæ–¹æ³•
 //
 	/**
-	 * ÖØĞ´paintComponent·½·¨,Èç¹ûÆåµãÃ»Æå×ÓÔòÌí¼ÓÊó±êÊÂ¼şÕìÌıÆ÷£¬
-	 * ·ñÔòÒÆ³ıÊó±êµÄÊÂ¼şÕìÌıÆ÷
+	 * é‡å†™paintComponentæ–¹æ³•,å¦‚æœæ£‹ç‚¹æ²¡æ£‹å­åˆ™æ·»åŠ é¼ æ ‡äº‹ä»¶ä¾¦å¬å™¨ï¼Œ
+	 * å¦åˆ™ç§»é™¤é¼ æ ‡çš„äº‹ä»¶ä¾¦å¬å™¨
  	 */
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -113,7 +113,7 @@ public class ChessPoint extends JPanel {
 		}
 	}
 //
-//  ÊôĞÔÉèÖÃ»ò²éÑ¯·½·¨
+//  å±æ€§è®¾ç½®æˆ–æŸ¥è¯¢æ–¹æ³•
 //
 	public char getChessType() {
 		return chessType;

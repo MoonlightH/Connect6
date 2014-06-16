@@ -2,9 +2,9 @@ package com.jp.ui.event;
 
 import java.util.EventObject;
 /**
- * RoleChangeEvent 角色变更事件
+ * RoleChangeEvent 瑙掕壊鍙樻洿浜嬩欢
  * 
- * @author 蒋鹏
+ * @author 钂嬮箯
  */
 public class RoleChangeEvent extends EventObject {
 	

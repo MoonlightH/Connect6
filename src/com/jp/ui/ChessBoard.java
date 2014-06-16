@@ -13,27 +13,27 @@ import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
- * ÆåÅÌÀà£¬ÔÚÈ«²¿Ó¦ÓÃÖĞÆåÅÌÖ»ÓĞÒ»¸öËùÒÔchessBoardÓ¦¸ÃÎªµ¥ÀıÀà£¬
- * ÓÃÀ´´´½¨Ò»¸öÆåÅÌ¶ÔÏó  
- * @author ½¯Åô
+ * æ£‹ç›˜ç±»ï¼Œåœ¨å…¨éƒ¨åº”ç”¨ä¸­æ£‹ç›˜åªæœ‰ä¸€ä¸ªæ‰€ä»¥chessBoardåº”è¯¥ä¸ºå•ä¾‹ç±»ï¼Œ
+ * ç”¨æ¥åˆ›å»ºä¸€ä¸ªæ£‹ç›˜å¯¹è±¡  
+ * @author è’‹é¹
  */
 public class ChessBoard extends JPanel implements ChessBoardModelListener{
 	
 	private static final long serialVersionUID = 1L;
-	/** ÆåÅÌÀà±äÁ¿  */
+	/** æ£‹ç›˜ç±»å˜é‡  */
 	private static ChessBoard instance=null;
 //
-//  ÊµÀı±äÁ¿
+//  å®ä¾‹å˜é‡
 //
-	/** ÆåµãÊı×é±äÁ¿ */
+	/** æ£‹ç‚¹æ•°ç»„å˜é‡ */
 	private ChessPoint[][] chessPoints=null;
-	/** ÆåÅÌÊı¾İÄ£ĞÍ±äÁ¿ */
+	/** æ£‹ç›˜æ•°æ®æ¨¡å‹å˜é‡ */
 	private ChessBoardModel dataModel;
 //
-//  ¹¹Ôì·½·¨
+//  æ„é€ æ–¹æ³•
 //
 	/**
-	 *  ÆåÅÌÀàµÄÎŞ²Î¹¹Ôì·½·¨£¬ÓÃÄ¬ÈÏÆåÅÌÊı¾İÄ£ĞÍÊµÀı»¯ÆåÅÌ¶ÔÏó
+	 *  æ£‹ç›˜ç±»çš„æ— å‚æ„é€ æ–¹æ³•ï¼Œç”¨é»˜è®¤æ£‹ç›˜æ•°æ®æ¨¡å‹å®ä¾‹åŒ–æ£‹ç›˜å¯¹è±¡
 	 */
 	private ChessBoard() {
 		this.setLayout(null);
@@ -51,11 +51,11 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 		}
 	}
 //
-//  Àà·½·¨
+//  ç±»æ–¹æ³•
 //
 	/**
-	 *  getInstance·½·¨£¬ÓÃÀ´»ñÈ¡ÆåÅÌÀàµÄÎ¨Ò»¶ÔÏó
-	 *  @return instance ÆåÅÌÀà¶ÔÏó 
+	 *  getInstanceæ–¹æ³•ï¼Œç”¨æ¥è·å–æ£‹ç›˜ç±»çš„å”¯ä¸€å¯¹è±¡
+	 *  @return instance æ£‹ç›˜ç±»å¯¹è±¡ 
 	 */
 	public static ChessBoard getInstance(){
 		if(instance==null){
@@ -64,10 +64,10 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 		return instance;
 	}
 //
-//  ÆÕÍ¨·½·¨
+//  æ™®é€šæ–¹æ³•
 //
 	/**
-	 *  ÖØĞ´paintComponent·½·¨£¬À´ÎªÆåÅÌ¶ÔÏó»æÖÆ±³¾°Í¼Æ¬
+	 *  é‡å†™paintComponentæ–¹æ³•ï¼Œæ¥ä¸ºæ£‹ç›˜å¯¹è±¡ç»˜åˆ¶èƒŒæ™¯å›¾ç‰‡
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -76,8 +76,8 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 		g.drawImage(bgImage, 0, 0, icon.getIconWidth(),icon.getIconHeight(),icon.getImageObserver());
 	}
 	/**
-	 *  ÊµÏÖchessBoardModelListener½Ó¿ÚµÄ·½·¨£¬ÓÃÀ´´¦ÀíchessBoardModelÊÂ¼ş
-	 *  @param e ÆåÅÌÊı¾İÄ£ĞÍÊÂ¼ş
+	 *  å®ç°chessBoardModelListeneræ¥å£çš„æ–¹æ³•ï¼Œç”¨æ¥å¤„ç†chessBoardModeläº‹ä»¶
+	 *  @param e æ£‹ç›˜æ•°æ®æ¨¡å‹äº‹ä»¶
 	 */
 	@Override
 	public void chessBoardChanged(ChessBoardModelEvent e) {
@@ -100,13 +100,13 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 		}
 	}
 //
-//  ²éÑ¯¡¢ÉèÖÃ±äÁ¿ÖµµÄ·½·¨
+//  æŸ¥è¯¢ã€è®¾ç½®å˜é‡å€¼çš„æ–¹æ³•
 //
 	/**
-	 *  ÎªÆåÅÌ¶ÔÏóÉèÖÃĞÂµÄÆåÅÌÊı¾İÄ£ĞÍ£¬²¢ÒÆ³ı¾ÉÄ£ĞÍµÄÊÂ¼şÕìÌı£¬
-	 *  ÎªĞÂÊı¾İÄ£ĞÍÌí¼ÓÊı¾İÄ£ĞÍÊÂ¼şÕìÌı
-	 *  @param dataModel ÆåÅÌ¶ÔÏóµÄĞÂÊı¾İÔ´
-	 *  @exception IllegalArgumentException Èç¹ûĞÂÄ£ĞÍÎª¿Õ
+	 *  ä¸ºæ£‹ç›˜å¯¹è±¡è®¾ç½®æ–°çš„æ£‹ç›˜æ•°æ®æ¨¡å‹ï¼Œå¹¶ç§»é™¤æ—§æ¨¡å‹çš„äº‹ä»¶ä¾¦å¬ï¼Œ
+	 *  ä¸ºæ–°æ•°æ®æ¨¡å‹æ·»åŠ æ•°æ®æ¨¡å‹äº‹ä»¶ä¾¦å¬
+	 *  @param dataModel æ£‹ç›˜å¯¹è±¡çš„æ–°æ•°æ®æº
+	 *  @exception IllegalArgumentException å¦‚æœæ–°æ¨¡å‹ä¸ºç©º
 	 */
 	public void setModel(ChessBoardModel dataModel) {
 		if(dataModel==null){
@@ -119,7 +119,7 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 			HashSet<Integer> changedCoordSet=new HashSet<>(40);
 			if(this.dataModel!=null){
 				char[][] oldCompositionData=oldModel.getCompositionData();
-				//ÒÆ³ıÌí¼ÓµÄÊÂ¼şÕìÌıÆ÷
+				//ç§»é™¤æ·»åŠ çš„äº‹ä»¶ä¾¦å¬å™¨
 				oldModel.removeChessBoardModelListener(this);
 				for (int i = 0; i < 19; i++) {
 					for (int j = 0; j < 19; j++) {
@@ -150,8 +150,8 @@ public class ChessBoard extends JPanel implements ChessBoardModelListener{
 	}
 	
 	/**
-	 *  »ñÈ¡ÆåÅÌ¶ÔÏóµÄÆåÅÌÊı¾İÄ£ĞÍ
-	 *  @return dataModel ·µ»ØÆåÅÌÊı¾İÄ£ĞÍ¶ÔÏó
+	 *  è·å–æ£‹ç›˜å¯¹è±¡çš„æ£‹ç›˜æ•°æ®æ¨¡å‹
+	 *  @return dataModel è¿”å›æ£‹ç›˜æ•°æ®æ¨¡å‹å¯¹è±¡
 	 */
 	public ChessBoardModel getModel(){
 		return dataModel;

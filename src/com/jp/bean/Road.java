@@ -9,29 +9,29 @@ import static com.jp.ui.ChessPoint.NOCHESS;
 import static com.jp.ui.ChessPoint.WHITECHESS;
 
 /**
- *  RoadÀà£¬Í¨¹ı¶¨Òå¡°Â·¡±À´½â¾öÁù×ÓÆåÆåĞÎÅĞ¶ÏµÄÎÊÌâ
- *  @author ½¯Åô
+ *  Roadç±»ï¼Œé€šè¿‡å®šä¹‰â€œè·¯â€æ¥è§£å†³å…­å­æ£‹æ£‹å½¢åˆ¤æ–­çš„é—®é¢˜
+ *  @author è’‹é¹
  */
 
 public class Road {
 //
-//  ÊµÀıÊôĞÔ
+//  å®ä¾‹å±æ€§
 //
-	/** µ±Ç°Â·ÓĞĞ§µÄÇé¿öÏÂÆå×ÓµÄÑÕÉ«£¬Èç¹ûÎŞĞ§ÔòÆå×ÓÑÕÉ«ÎªÎŞÆå×Ó×´Ì¬ */
+	/** å½“å‰è·¯æœ‰æ•ˆçš„æƒ…å†µä¸‹æ£‹å­çš„é¢œè‰²ï¼Œå¦‚æœæ— æ•ˆåˆ™æ£‹å­é¢œè‰²ä¸ºæ— æ£‹å­çŠ¶æ€ */
 	private char chessColor=ChessPoint.NOCHESS;
-	/** µ±Ç°ÓĞĞ§Â·ÖĞÆå×ÓµÄ¸öÊı */
+	/** å½“å‰æœ‰æ•ˆè·¯ä¸­æ£‹å­çš„ä¸ªæ•° */
 	private int validChessCount=0;
-	/** µ±Ç°ÆåÂ·ÖĞÆå×ÓµÄĞÅÏ¢ */
+	/** å½“å‰æ£‹è·¯ä¸­æ£‹å­çš„ä¿¡æ¯ */
 	private Vector<Character> chesses=new Vector<>(6);
 //
-//  ¹¹Ôì·½·¨
+//  æ„é€ æ–¹æ³•
 //
 	public Road(Vector<Character> chesses) {
 		this.chesses=chesses;
 		int bChessNum=0;
 		int wChessNum=0;
 		for(Character c:chesses){
-			//Èç¹ûÆå×ÓÊı¾İÄ£ĞÍ²»´æÔÚ£¬²»×öÈÎºÎÅĞ¶Ï
+			//å¦‚æœæ£‹å­æ•°æ®æ¨¡å‹ä¸å­˜åœ¨ï¼Œä¸åšä»»ä½•åˆ¤æ–­
 			if(c==NOCHESS){
 				continue;
 			}
@@ -52,27 +52,27 @@ public class Road {
 		}
 	}
 //
-//  ²éÑ¯»òÉèÖÃÊµÀıÊôĞÔµÄ·½·¨
+//  æŸ¥è¯¢æˆ–è®¾ç½®å®ä¾‹å±æ€§çš„æ–¹æ³•
 //
 	/** 
-	 * getChessColor»ñÈ¡µ±Ç°Â·µÄÑÕÉ«
-	 * @return chessColor ChessPoint.BLACKCHESS»ò'b'±íÃ÷µ±Ç°ÆåÂ·ÎªºÚ×ÓÆåÂ·¡¢
-	 *  	ChessPoint.WHITECHESS»ò'w'±íÃ÷µ±Ç°ÆåÂ·Îª°××ÓÆåÂ·¡¢ChessPoint.NOCHESS
-	 *  	»ò'n'±íÃ÷µ±Ç°ÆåÂ·ÎŞĞ§
+	 * getChessColorè·å–å½“å‰è·¯çš„é¢œè‰²
+	 * @return chessColor ChessPoint.BLACKCHESSæˆ–'b'è¡¨æ˜å½“å‰æ£‹è·¯ä¸ºé»‘å­æ£‹è·¯ã€
+	 *  	ChessPoint.WHITECHESSæˆ–'w'è¡¨æ˜å½“å‰æ£‹è·¯ä¸ºç™½å­æ£‹è·¯ã€ChessPoint.NOCHESS
+	 *  	æˆ–'n'è¡¨æ˜å½“å‰æ£‹è·¯æ— æ•ˆ
 	 */
 	public char getChessColor() {
 		return chessColor;
 	}
 	/**
-	 * getValidChessCount»ñÈ¡µ±Ç°ÓĞĞ§Â·µÄÓĞĞ§Æå×Ó¸öÊı
-	 * @return validChessCount ÓĞĞ§Â·ÖĞÓĞĞ§Æå×ÓµÄ¸öÊı
+	 * getValidChessCountè·å–å½“å‰æœ‰æ•ˆè·¯çš„æœ‰æ•ˆæ£‹å­ä¸ªæ•°
+	 * @return validChessCount æœ‰æ•ˆè·¯ä¸­æœ‰æ•ˆæ£‹å­çš„ä¸ªæ•°
 	 */
 	public int getValidChessCount() {
 		return validChessCount;
 	}
 	/**
-	 * getChess»ñÈ¡µ±Ç°Â·ÖĞÆå×ÓµÄĞÅÏ¢
-	 * @return chesses µ±Ç°Â·ÖĞµÄÆå×ÓĞÅÏ¢
+	 * getChessè·å–å½“å‰è·¯ä¸­æ£‹å­çš„ä¿¡æ¯
+	 * @return chesses å½“å‰è·¯ä¸­çš„æ£‹å­ä¿¡æ¯
 	 */
 	public Vector<Character> getChesses() {
 		return chesses;

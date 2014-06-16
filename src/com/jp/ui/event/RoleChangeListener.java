@@ -2,9 +2,9 @@ package com.jp.ui.event;
 
 import java.util.EventListener;
 /**
- * RoleChangeListener 角色变更的监听器
+ * RoleChangeListener 瑙掕壊鍙樻洿鐨勭洃鍚櫒
  * 
- * @author 蒋鹏
+ * @author 钂嬮箯
  */
 public interface RoleChangeListener extends EventListener {
 	public void roleChanged(RoleChangeEvent e);

@@ -3,31 +3,31 @@ package com.jp.bean;
 import java.util.ArrayList;
 
 /**
- * Move±íÊ¾Ä³Ò»·½µÄÒ»´ÎÏÂÆå¹ı³Ì(Á½×Ó»òÒ»×Ó)
- * @author ½¯Åô
+ * Moveè¡¨ç¤ºæŸä¸€æ–¹çš„ä¸€æ¬¡ä¸‹æ£‹è¿‡ç¨‹(ä¸¤å­æˆ–ä¸€å­)
+ * @author è’‹é¹
  */
 public class Move {
-//¶ÔÏóÊôĞÔ
-	/** Æå×Ó×ø±êÊı×é£¬ÓÃÀ´±íÊ¾¿ÉÏÂµÄÆå×Ó */
+//å¯¹è±¡å±æ€§
+	/** æ£‹å­åæ ‡æ•°ç»„ï¼Œç”¨æ¥è¡¨ç¤ºå¯ä¸‹çš„æ£‹å­ */
 	private ArrayList<Integer> coordArray=new ArrayList<>(2);
-//¹¹Ôì·½·¨
+//æ„é€ æ–¹æ³•
 	/**
-	 * Ö»ÏÂÒ»¸öÆå×ÓµÄ£¬ÏÂÆå¹ı³Ì¹¹Ôì·½·¨
-	 * @param cpd Æåµã¶ÔÏó
+	 * åªä¸‹ä¸€ä¸ªæ£‹å­çš„ï¼Œä¸‹æ£‹è¿‡ç¨‹æ„é€ æ–¹æ³•
+	 * @param cpd æ£‹ç‚¹å¯¹è±¡
 	 */
 	public Move(int coord){
 		coordArray.add(coord);
 	}
 	/**
-	 * ÏÂÁ½¸öÆå×ÓµÄ£¬ÏÂÆå¹ı³Ì¹¹Ôì·½·¨
-	 * @param cOne µÚÒ»¸öÆåµã¶ÔÏó
-	 * @param cTwo µÚ¶ş¸öÆåµã¶ÔÏó
+	 * ä¸‹ä¸¤ä¸ªæ£‹å­çš„ï¼Œä¸‹æ£‹è¿‡ç¨‹æ„é€ æ–¹æ³•
+	 * @param cOne ç¬¬ä¸€ä¸ªæ£‹ç‚¹å¯¹è±¡
+	 * @param cTwo ç¬¬äºŒä¸ªæ£‹ç‚¹å¯¹è±¡
 	 */
 	public Move(int cOne,int cTwo){
 		coordArray.add(cOne);
 		coordArray.add(cTwo);
 	}
-//ÊôĞÔÉèÖÃ»ò²éÑ¯·½·¨
+//å±æ€§è®¾ç½®æˆ–æŸ¥è¯¢æ–¹æ³•
 	public ArrayList<Integer> getCoordArray() {
 		return coordArray;
 	}

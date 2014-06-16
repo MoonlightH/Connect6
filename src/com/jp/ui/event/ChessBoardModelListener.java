@@ -3,9 +3,9 @@ package com.jp.ui.event;
 import java.util.EventListener;
 
 /**
- * ChessBoardModelListener 棋盘数据模型事件的侦听器
+ * ChessBoardModelListener 妫嬬洏鏁版嵁妯″瀷浜嬩欢鐨勪睛鍚櫒
  * 
- * @author 蒋鹏
+ * @author 钂嬮箯
  */
 public interface ChessBoardModelListener extends EventListener {
 	public void chessBoardChanged(ChessBoardModelEvent e);

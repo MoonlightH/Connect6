@@ -15,8 +15,8 @@ import com.jp.ui.WhiteTimer;
 import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 /**
- * MoveCalculateÀà
- * @author ½¯Åô
+ * MoveCalculateç±»
+ * @author è’‹é¹
  */
 public class MoveCalculate extends SwingWorker<Move, Object> {
 	@Override
@@ -35,16 +35,16 @@ public class MoveCalculate extends SwingWorker<Move, Object> {
 			bt.stop();
 			wt.start();
 		}
-		//Èç¹ûÊÇÈË»ú¶ÔÕ½
+		//å¦‚æœæ˜¯äººæœºå¯¹æˆ˜
 		if(GameConfig.VSWay==GameConfig.PLAYERVSAI){
 			publish(new Object());
-			//Íæ¼ÒÖ´ºÚ£¬AIÖ´°×
+			//ç©å®¶æ‰§é»‘ï¼ŒAIæ‰§ç™½
 			if(GameConfig.BlackStatus==GameConfig.PLAYER && GameConfig.WhiteStatus==GameConfig.AI){
 				if(currentRole==ChessPoint.WHITECHESS){
 					move=SearchAlgorithm.getNextMoves(dcbm);
 				}
 			}
-			//AIÖ´ºÚ£¬Íæ¼ÒÖ´°×
+			//AIæ‰§é»‘ï¼Œç©å®¶æ‰§ç™½
 			if(GameConfig.BlackStatus==GameConfig.AI && GameConfig.WhiteStatus==GameConfig.PLAYER){
 				if(currentRole==ChessPoint.BLACKCHESS){
 					if(dcbm.getAllChessNumber()==0){
@@ -74,10 +74,10 @@ public class MoveCalculate extends SwingWorker<Move, Object> {
 				DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
 				String chessManual=null;
 				if(dcbm.getCurrentRole()==ChessPoint.WHITECHESS && GameConfig.WhiteStatus==GameConfig.AI){
-					chessManual="°×£º";	
+					chessManual="ç™½ï¼š";	
 				}
 				if(dcbm.getCurrentRole()==ChessPoint.BLACKCHESS && GameConfig.BlackStatus==GameConfig.AI){
-					chessManual="ºÚ£º";	
+					chessManual="é»‘ï¼š";	
 				}
 				for(int coord:temp.getCoordArray()){
 					dcbm.addChess(coord);

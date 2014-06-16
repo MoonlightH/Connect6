@@ -1,35 +1,35 @@
 package com.jp.config;
 
 /**
- *   Áù×ÓÆåÓÎÏ·µÄÅäÖÃĞÅÏ¢Àà
+ *   å…­å­æ£‹æ¸¸æˆçš„é…ç½®ä¿¡æ¯ç±»
  *   
- *   @author ½¯Åô
+ *   @author è’‹é¹
  */
 public class GameConfig {
-	/** ¶ÔÕ½Ä£Ê½Ñ¡ÔñÖĞµÄÈË»ú¶ÔÕ½ */
+	/** å¯¹æˆ˜æ¨¡å¼é€‰æ‹©ä¸­çš„äººæœºå¯¹æˆ˜ */
 	public final static int PLAYERVSAI=0;
-	/** ¶ÔÕ½Ä£Ê½Ñ¡ÔñÖĞµÄÈËÈË¶ÔÕ½ */
+	/** å¯¹æˆ˜æ¨¡å¼é€‰æ‹©ä¸­çš„äººäººå¯¹æˆ˜ */
 	public final static int PLAYERVSPLAYER=1;
-	/** ²©ŞÄË«·½µÄÉí·İ-Íæ¼Ò */
+	/** åšå¼ˆåŒæ–¹çš„èº«ä»½-ç©å®¶ */
 	public final static int PLAYER=0;
-	/** ²©ŞÄË«·½µÄÉí·İ-AI */
+	/** åšå¼ˆåŒæ–¹çš„èº«ä»½-AI */
 	public final static int AI=1;
-	/** ÄÑ¶ÈÎªĞÂÊÖÊ±µÄ²©ŞÄÊ÷ËÑË÷Éî¶È */
+	/** éš¾åº¦ä¸ºæ–°æ‰‹æ—¶çš„åšå¼ˆæ ‘æœç´¢æ·±åº¦ */
 	public final static int NOVICEDEEP=1;
-	/** ÄÑ¶ÈÎªÆÕÍ¨Ê±µÄ²©ŞÄÊ÷ËÑË÷Éî¶È */
+	/** éš¾åº¦ä¸ºæ™®é€šæ—¶çš„åšå¼ˆæ ‘æœç´¢æ·±åº¦ */
 	public final static int NORMALDEEP=2;
-	/** ÄÑ¶ÈÎª¾«Ó¢Ê±µÄ²©ŞÄÊ÷ËÑË÷Éî¶È */
+	/** éš¾åº¦ä¸ºç²¾è‹±æ—¶çš„åšå¼ˆæ ‘æœç´¢æ·±åº¦ */
 	public final static int HARDDEEP=3;
 //GenerateMoves
-	/** ×ß·¨Éú³ÉÊ±»ñÈ¡ÆåµãµÄ¿í¶È */
+	/** èµ°æ³•ç”Ÿæˆæ—¶è·å–æ£‹ç‚¹çš„å®½åº¦ */
 	public final static int GENERATEMOVESWIDTH=5;
 //MainFrame
-	/** µ±Ç°Æå¾ÖµÄ¶ÔÕ½Ä£Ê½,Ä¬ÈÏÊÇÈË»ú¶ÔÕ½ */
+	/** å½“å‰æ£‹å±€çš„å¯¹æˆ˜æ¨¡å¼,é»˜è®¤æ˜¯äººæœºå¯¹æˆ˜ */
 	public static int VSWay=GameConfig.PLAYERVSAI;
-	/** µ±Ç°AIµÄµÈ¼¶£¬Ä¬ÈÏÊÇĞÂÊÖµÈ¼¶ */
+	/** å½“å‰AIçš„ç­‰çº§ï¼Œé»˜è®¤æ˜¯æ–°æ‰‹ç­‰çº§ */
 	public static int AILevel=GameConfig.NOVICEDEEP;
-	/** µ±Ç°ºÚ·½Éí·İ£¬Ä¬ÈÏÊÇÍæ¼Ò */
+	/** å½“å‰é»‘æ–¹èº«ä»½ï¼Œé»˜è®¤æ˜¯ç©å®¶ */
 	public static int BlackStatus=GameConfig.PLAYER;
-	/** µ±Ç°°×·½Éí·İ£¬Ä¬ÈÏÊÇAI */
+	/** å½“å‰ç™½æ–¹èº«ä»½ï¼Œé»˜è®¤æ˜¯AI */
 	public static int WhiteStatus=GameConfig.AI; 
 }

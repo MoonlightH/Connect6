@@ -6,7 +6,7 @@ import com.jp.ui.MainFrame;
 
 public class Main {
 	/**
-	 * ³ÌĞòÈë¿Ú
+	 * ç¨‹åºå…¥å£
 	 */
 	public static void main(String[] args) {
 //		long start1=System.currentTimeMillis();

@@ -8,26 +8,26 @@ import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
- *  SearchAlgorithmÀà£¬Ìá¹©¶Ô²©ŞÄÊ÷µÄËÑË÷·½·¨
+ *  SearchAlgorithmç±»ï¼Œæä¾›å¯¹åšå¼ˆæ ‘çš„æœç´¢æ–¹æ³•
  *  
- *  @author ½¯Åô
+ *  @author è’‹é¹
  */
 public class SearchAlgorithm {
 	
 	public static Move bestMove=null;
 	
 	/**
-	 *  alphaBeat·½·¨²ÉÓÃ¦Á-¦Â¼ôÖ¦½øĞĞµİ¹éËÑË÷(²ÉÓÃ¸º¼«´óÖµ·½·¨)
-	 *  @param chessBoardMOdel ÓÃ¦Á-¦Â¼ôÖ¦µÄÆå¾ÖÊı¾İÄ£ĞÍ
-	 *  @param alpha alphaÖµ
-	 *  @param beta betaÖµ
-	 *  @param depth ËÑË÷µÄÉî¶È
+	 *  alphaBeatæ–¹æ³•é‡‡ç”¨Î±-Î²å‰ªæè¿›è¡Œé€’å½’æœç´¢(é‡‡ç”¨è´Ÿæå¤§å€¼æ–¹æ³•)
+	 *  @param chessBoardMOdel ç”¨Î±-Î²å‰ªæçš„æ£‹å±€æ•°æ®æ¨¡å‹
+	 *  @param alpha alphaå€¼
+	 *  @param beta betaå€¼
+	 *  @param depth æœç´¢çš„æ·±åº¦
 	 */
 	public static int alphaBeta(ChessBoardModel chessBoardModel,int alpha,int beta,int depth){
 		int value,best=Integer.MIN_VALUE;
 		DefaultChessBoardModel dcbm=(DefaultChessBoardModel)chessBoardModel;
 		char chessColor=dcbm.getNextStepChessColor();
-		//Èç¹ûÆå¾Ö½áÊø»òµ±Ç°½ÚµãÎªÒ¶×Ó½ÚµãÔò·µ»ØÆÀ¹ÀÖµ
+		//å¦‚æœæ£‹å±€ç»“æŸæˆ–å½“å‰èŠ‚ç‚¹ä¸ºå¶å­èŠ‚ç‚¹åˆ™è¿”å›è¯„ä¼°å€¼
 		if(EvaluationFunction.isGameOver(dcbm)||depth<=0){
 			int evaluateScore=EvaluationFunction.evaluateChessStatus(chessColor, dcbm);
 			return evaluateScore;
@@ -55,9 +55,9 @@ public class SearchAlgorithm {
 	
 	
 	/**
-	 *  getNextMoves·½·¨£¬»ñÈ¡µ±Ç°Æå¾Ö¾ÖÃæµÄÏÂÒ»²½×ß·¨(×ß·¨°üº¬Á½¸öÆå×Ó)
-	 *  @param chessBoardModel µ±Ç°Æå¾ÖµÄÊı¾İÄ£ĞÍ
-	 *  @return move ·µ»ØÒ»»ØºÏµÄÆå×Ó×ß·¨
+	 *  getNextMovesæ–¹æ³•ï¼Œè·å–å½“å‰æ£‹å±€å±€é¢çš„ä¸‹ä¸€æ­¥èµ°æ³•(èµ°æ³•åŒ…å«ä¸¤ä¸ªæ£‹å­)
+	 *  @param chessBoardModel å½“å‰æ£‹å±€çš„æ•°æ®æ¨¡å‹
+	 *  @return move è¿”å›ä¸€å›åˆçš„æ£‹å­èµ°æ³•
 	 */
 	public static Move getNextMoves(ChessBoardModel chessBoardModel){
 		Move move=null;

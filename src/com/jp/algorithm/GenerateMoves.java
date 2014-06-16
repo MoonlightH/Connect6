@@ -15,18 +15,18 @@ import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
- * GenerateMoves×ß·¨Éú³ÉÀà£¬¸ù¾İµ±Ç°Æå¾Ö¾ÖÊÆÉú³ÉÏà¹Ø²©ŞÄÊ÷½Úµã
+ * GenerateMovesèµ°æ³•ç”Ÿæˆç±»ï¼Œæ ¹æ®å½“å‰æ£‹å±€å±€åŠ¿ç”Ÿæˆç›¸å…³åšå¼ˆæ ‘èŠ‚ç‚¹
  * 
- * @author ½¯Åô
+ * @author è’‹é¹
  */
 public class GenerateMoves {
 	/**
-	 * generateMovesÉú³Éµ±Æå¾ÖµÄËùÓĞºÏÊÊµÄ×ß·¨»ØºÏ
+	 * generateMovesç”Ÿæˆå½“æ£‹å±€çš„æ‰€æœ‰åˆé€‚çš„èµ°æ³•å›åˆ
 	 * 
 	 * @param chessBoardModel
-	 *            ĞèÒªÉú³É×ß·¨»ØºÏµÄÆå¾ÖÊı¾İÄ£ĞÍ
+	 *            éœ€è¦ç”Ÿæˆèµ°æ³•å›åˆçš„æ£‹å±€æ•°æ®æ¨¡å‹
 	 * 
-	 * @return moves ·µ»ØÉú³ÉµÄ×ß·¨»ØºÏÊı×é
+	 * @return moves è¿”å›ç”Ÿæˆçš„èµ°æ³•å›åˆæ•°ç»„
 	 */
 	public static ArrayList<Move> generateMoves(ChessBoardModel chessBoardModel) {
 		DefaultChessBoardModel dcbm = (DefaultChessBoardModel) chessBoardModel;
@@ -44,11 +44,11 @@ public class GenerateMoves {
 	}
 
 	/**
-	 * ¸ù¾İ¾ÖÃæ»ñÈ¡ÆÀ·Ö¸ßµÄÆåµã×ø±ê
+	 * æ ¹æ®å±€é¢è·å–è¯„åˆ†é«˜çš„æ£‹ç‚¹åæ ‡
 	 * 
-	 * @param chessBoadrModel µ±Ç°Æå¾Ö¾ÖÊÆ
+	 * @param chessBoadrModel å½“å‰æ£‹å±€å±€åŠ¿
 	 *            
-	 * @return coords ÆÀ·Ö½Ï¸ßµÄÆåµã×ø±ê
+	 * @return coords è¯„åˆ†è¾ƒé«˜çš„æ£‹ç‚¹åæ ‡
 	 */
 	public static ArrayList<Integer> getTopPoint(ChessBoardModel chessBoardModel) {
 		ArrayList<Integer> coords = new ArrayList<>(
@@ -79,12 +79,12 @@ public class GenerateMoves {
 	}
 
 	/**
-	 * getReserveChessPoints·½·¨£¬»ñÈ¡±¸Ñ¡ÆåµãÓÃÀ´Éú³ÉÏÂÒ»²½×ß·¨
+	 * getReserveChessPointsæ–¹æ³•ï¼Œè·å–å¤‡é€‰æ£‹ç‚¹ç”¨æ¥ç”Ÿæˆä¸‹ä¸€æ­¥èµ°æ³•
 	 * 
 	 * @param chessBoardModel
-	 *            ĞèÒªÉú³É±¸Ñ¡ÆåµãµÄÆå¾ÖÊı¾İÄ£ĞÍ
+	 *            éœ€è¦ç”Ÿæˆå¤‡é€‰æ£‹ç‚¹çš„æ£‹å±€æ•°æ®æ¨¡å‹
 	 * 
-	 * @return ReserveCoords ±¸Ñ¡Æåµã×ø±ê¼¯ºÏ
+	 * @return ReserveCoords å¤‡é€‰æ£‹ç‚¹åæ ‡é›†åˆ
 	 */
 	private static HashSet<Integer> getReserveCoords(
 			ChessBoardModel chessBoardModel) {

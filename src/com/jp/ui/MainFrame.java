@@ -46,9 +46,9 @@ import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
- * Áù×ÓÆåÖ÷´°Ìå 
+ * å…­å­æ£‹ä¸»çª—ä½“ 
  * 
- * @author ½¯Åô
+ * @author è’‹é¹
  */
 public class MainFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -64,10 +64,10 @@ public class MainFrame extends JFrame{
 	private JButton gstop;
 	
 	/**
-	 * ÎŞ²Î¹¹Ôìº¯Êı,Ê¹ÓÃÄ¬ÈÏµÄÆåÅÌÊı¾İÄ£ĞÍÀ´ÊµÀı»¯ÆåÅÌ  
+	 * æ— å‚æ„é€ å‡½æ•°,ä½¿ç”¨é»˜è®¤çš„æ£‹ç›˜æ•°æ®æ¨¡å‹æ¥å®ä¾‹åŒ–æ£‹ç›˜  
 	 */
 	private MainFrame() {
-		setTitle("Áù×ÓÆå");
+		setTitle("å…­å­æ£‹");
 		setIconImage(new ImageIcon("./images/icon.png").getImage());
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,22 +75,22 @@ public class MainFrame extends JFrame{
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
-		// Ö÷´°ÌåµÄ¹«ÓÃ¶ÔÏó
-		Font myFont = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12);
+		// ä¸»çª—ä½“çš„å…¬ç”¨å¯¹è±¡
+		Font myFont = new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 12);
 
 		/**
-		 * ³ÌĞò²Ëµ¥À¸
+		 * ç¨‹åºèœå•æ 
 		 */
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 900, 25);
 		getContentPane().add(menuBar);
 
-		// Ïò²Ëµ¥À¸ÖĞÌí¼Ó¡°ÓÎÏ·¡±
-		JMenu game = new JMenu("ÓÎÏ·");
+		// å‘èœå•æ ä¸­æ·»åŠ â€œæ¸¸æˆâ€
+		JMenu game = new JMenu("æ¸¸æˆ");
 		game.setFont(myFont);
 		menuBar.add(game);
 
-		JMenuItem openNewGame = new JMenuItem("¿ªĞÂ¾Ö");
+		JMenuItem openNewGame = new JMenuItem("å¼€æ–°å±€");
 		openNewGame.setFont(myFont);
 		openNewGame.setAccelerator(KeyStroke.getKeyStroke('O',
 				InputEvent.CTRL_DOWN_MASK));
@@ -109,7 +109,7 @@ public class MainFrame extends JFrame{
 		JSeparator separator_1 = new JSeparator();
 		game.add(separator_1);
 
-		JMenuItem quitGame = new JMenuItem("Àë¿ª");
+		JMenuItem quitGame = new JMenuItem("ç¦»å¼€");
 		quitGame.setFont(myFont);
 		quitGame.setAccelerator(KeyStroke.getKeyStroke('X',
 				InputEvent.CTRL_DOWN_MASK));
@@ -121,29 +121,29 @@ public class MainFrame extends JFrame{
 		});
 		game.add(quitGame);
 
-		// Ïò²Ëµ¥À¸ÖĞÌí¼Ó¡°ÏÂÆåÄ£Ê½¡±
-		JMenu chessModel = new JMenu("ÏÂÆåÄ£Ê½");
+		// å‘èœå•æ ä¸­æ·»åŠ â€œä¸‹æ£‹æ¨¡å¼â€
+		JMenu chessModel = new JMenu("ä¸‹æ£‹æ¨¡å¼");
 		chessModel.setFont(myFont);
 		menuBar.add(chessModel);
 
-		final JMenuItem start = new JMenuItem("¿ªÊ¼");
+		final JMenuItem start = new JMenuItem("å¼€å§‹");
 		start.setFont(myFont);
 		start.setAccelerator(KeyStroke.getKeyStroke('P',
 				InputEvent.SHIFT_DOWN_MASK));
 		chessModel.add(start);
 
-		JMenuItem stop = new JMenuItem("Í£Ö¹");
+		JMenuItem stop = new JMenuItem("åœæ­¢");
 		stop.setFont(myFont);
 		stop.setAccelerator(KeyStroke.getKeyStroke('S',
 				InputEvent.SHIFT_DOWN_MASK));
 		chessModel.add(stop);
 
-		// Ïò²Ëµ¥À¸ÖĞÌí¼Ó¡°¹ØÓÚ¡±
-		JMenu about = new JMenu("¹ØÓÚ");
+		// å‘èœå•æ ä¸­æ·»åŠ â€œå…³äºâ€
+		JMenu about = new JMenu("å…³äº");
 		about.setFont(myFont);
 		menuBar.add(about);
 
-		JMenuItem contect6 = new JMenuItem("Áù×ÓÆå");
+		JMenuItem contect6 = new JMenuItem("å…­å­æ£‹");
 		contect6.setFont(myFont);
 		contect6.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		contect6.addActionListener(new ActionListener() {
@@ -151,7 +151,7 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				Desktop dt = Desktop.getDesktop();
 				try {
-					dt.browse(new URI("http://zh.wikipedia.org/wiki/Áù×ÓÆå"));
+					dt.browse(new URI("http://zh.wikipedia.org/wiki/å…­å­æ£‹"));
 				} catch (IOException | URISyntaxException e1) {
 					e1.printStackTrace();
 				}
@@ -160,27 +160,27 @@ public class MainFrame extends JFrame{
 		about.add(contect6);
 
 		/**
-		 * ³ÌĞòÔËĞĞ½á¹û±íÏÖÔØÌåÆåÅÌ
+		 * ç¨‹åºè¿è¡Œç»“æœè¡¨ç°è½½ä½“æ£‹ç›˜
 		 */
 		final ChessBoard chessBoard = ChessBoard.getInstance();
 		chessBoard.setBounds(10, 35, 621, 621);
 		getContentPane().add(chessBoard);
 
 		/**
-		 * ³ÌĞò¿ØÖÆÆ÷²¿·Ö
+		 * ç¨‹åºæ§åˆ¶å™¨éƒ¨åˆ†
 		 */
-		gstart = new JButton("¿ªÊ¼");
+		gstart = new JButton("å¼€å§‹");
 		gstart.setBounds(641, 54, 93, 23);
 		getContentPane().add(gstart);
 		
 
-		gstop = new JButton("Í£Ö¹");
+		gstop = new JButton("åœæ­¢");
 		gstop.setBounds(744, 54, 93, 23);
 		getContentPane().add(gstop);
 		
 
 		final JPanel vsWays = new JPanel();
-		TitledBorder tBorder_vs = BorderFactory.createTitledBorder("¶ÔÕ½Ä£Ê½");
+		TitledBorder tBorder_vs = BorderFactory.createTitledBorder("å¯¹æˆ˜æ¨¡å¼");
 		tBorder_vs.setTitleFont(myFont);
 		vsWays.setBorder(tBorder_vs);
 		vsWays.setBounds(641, 87, 225, 46);
@@ -189,7 +189,7 @@ public class MainFrame extends JFrame{
 
 		ButtonGroup vsWay = new ButtonGroup();
 
-		final JRadioButton playerVsAi = new JRadioButton("ÈË»ú¶ÔÕ½");
+		final JRadioButton playerVsAi = new JRadioButton("äººæœºå¯¹æˆ˜");
 		playerVsAi.setBounds(26, 15, 80, 25);
 		vsWays.add(playerVsAi);
 		playerVsAi.setFont(myFont);
@@ -202,7 +202,7 @@ public class MainFrame extends JFrame{
 			}
 		});
 
-		final JRadioButton playerVsPlayer = new JRadioButton("ÈËÈË¶ÔÕ½");
+		final JRadioButton playerVsPlayer = new JRadioButton("äººäººå¯¹æˆ˜");
 		playerVsPlayer.setBounds(123, 16, 80, 23);
 		vsWays.add(playerVsPlayer);
 		playerVsPlayer.setFont(myFont);
@@ -216,13 +216,13 @@ public class MainFrame extends JFrame{
 
 		final JPanel black = new JPanel();
 		black.setBounds(641, 143, 222, 70);
-		TitledBorder tBorder_b = BorderFactory.createTitledBorder("ºÚ·½");
+		TitledBorder tBorder_b = BorderFactory.createTitledBorder("é»‘æ–¹");
 		tBorder_b.setTitleFont(myFont);
 		black.setBorder(tBorder_b);
 		getContentPane().add(black);
 		black.setLayout(null);
 
-		final JRadioButton play_1 = new JRadioButton("Íæ¼Ò");
+		final JRadioButton play_1 = new JRadioButton("ç©å®¶");
 		play_1.setBounds(36, 16, 80, 23);
 		play_1.setFont(myFont);
 		play_1.setSelected(true);
@@ -261,13 +261,13 @@ public class MainFrame extends JFrame{
 
 		final JPanel white = new JPanel();
 		white.setBounds(641, 212, 222, 70);
-		TitledBorder tBorder_w = BorderFactory.createTitledBorder("°×·½");
+		TitledBorder tBorder_w = BorderFactory.createTitledBorder("ç™½æ–¹");
 		tBorder_w.setTitleFont(myFont);
 		white.setBorder(tBorder_w);
 		getContentPane().add(white);
 		white.setLayout(null);
 
-		final JRadioButton play_3 = new JRadioButton("Íæ¼Ò");
+		final JRadioButton play_3 = new JRadioButton("ç©å®¶");
 		play_3.setBounds(36, 16, 80, 23);
 		play_3.setFont(myFont);
 		white.add(play_3);
@@ -304,13 +304,13 @@ public class MainFrame extends JFrame{
 		whiteTimer.setBounds(122, 20, 54, 15);
 		white.add(whiteTimer);
 
-		final JLabel lblAi = new JLabel("AIµÈ¼¶");
+		final JLabel lblAi = new JLabel("AIç­‰çº§");
 		lblAi.setBounds(672, 292, 42, 15);
 		getContentPane().add(lblAi);
 
 		final JComboBox<String> aiLevel = new JComboBox<String>();
-		aiLevel.setModel(new DefaultComboBoxModel<String>(new String[] { "ĞÂÊÖ",
-				"ÆÕÍ¨", "¾«Ó¢" }));
+		aiLevel.setModel(new DefaultComboBoxModel<String>(new String[] { "æ–°æ‰‹",
+				"æ™®é€š", "ç²¾è‹±" }));
 		aiLevel.setBounds(724, 289, 78, 21);
 		getContentPane().add(aiLevel);
 		aiLevel.addItemListener(new ItemListener() {
@@ -318,13 +318,13 @@ public class MainFrame extends JFrame{
 			public void itemStateChanged(ItemEvent e) {
 				String item=e.getItem().toString();
 				switch (item) {
-				case "ĞÂÊÖ":
+				case "æ–°æ‰‹":
 					GameConfig.AILevel=GameConfig.NOVICEDEEP;
 					break;
-				case "ÆÕÍ¨":
+				case "æ™®é€š":
 					GameConfig.AILevel=GameConfig.NORMALDEEP;
 					break;
-				case "¾«Ó¢":
+				case "ç²¾è‹±":
 					GameConfig.AILevel=GameConfig.HARDDEEP;
 					break;
 				}
@@ -345,14 +345,14 @@ public class MainFrame extends JFrame{
 		chessManualShower.setMargin(new Insets(3, 5, 3, 5));
 		scrollPane.setViewportView(chessManualShower);
 		
-		// Îª¶ÔÕ½Ä£Ê½µ¥Ñ¡°´Å¥Ìí¼ÓÊÂ¼şÕìÌı
-		// ÈË»ú¶ÔÕ½¿ÉÒÔÑ¡ÔñAIµÈ¼¶
+		// ä¸ºå¯¹æˆ˜æ¨¡å¼å•é€‰æŒ‰é’®æ·»åŠ äº‹ä»¶ä¾¦å¬
+		// äººæœºå¯¹æˆ˜å¯ä»¥é€‰æ‹©AIç­‰çº§
 		playerVsAi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				play_1.setText("Íæ¼Ò");
+				play_1.setText("ç©å®¶");
 				play_2.setText("AI");
-				play_3.setText("Íæ¼Ò");
+				play_3.setText("ç©å®¶");
 				play_4.setText("AI");
 				lblAi.setVisible(true);
 				aiLevel.setVisible(true);
@@ -360,14 +360,14 @@ public class MainFrame extends JFrame{
 				GameConfig.VSWay=GameConfig.PLAYERVSAI;
 			}
 		});
-		// ÈËÈË¶ÔÕ½Ê±²»ÄÜÑ¡ÔñAIµÈ¼¶
+		// äººäººå¯¹æˆ˜æ—¶ä¸èƒ½é€‰æ‹©AIç­‰çº§
 		playerVsPlayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				play_1.setText("Íæ¼Ò1");
-				play_2.setText("Íæ¼Ò2");
-				play_3.setText("Íæ¼Ò1");
-				play_4.setText("Íæ¼Ò2");
+				play_1.setText("ç©å®¶1");
+				play_2.setText("ç©å®¶2");
+				play_3.setText("ç©å®¶1");
+				play_4.setText("ç©å®¶2");
 				lblAi.setVisible(false);
 				aiLevel.setVisible(false);
 				thinking.setVisible(false);
@@ -375,7 +375,7 @@ public class MainFrame extends JFrame{
 			}
 		});
 
-		// Îª¶ÔÏóÑ¡Ôñµ¥Ñ¡°´Å¥Ìí¼ÓÊÂ¼şÕìÌı,Ê¹µÃÓÃ»§»¥³â
+		// ä¸ºå¯¹è±¡é€‰æ‹©å•é€‰æŒ‰é’®æ·»åŠ äº‹ä»¶ä¾¦å¬,ä½¿å¾—ç”¨æˆ·äº’æ–¥
 		play_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

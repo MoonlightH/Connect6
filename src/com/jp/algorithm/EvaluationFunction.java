@@ -8,22 +8,22 @@ import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
- * EvaluationFunctionÆÀ¹Àº¯ÊıÓÃÀ´ÆÀ¹Àµ±Ç°Æå¾ÖµÄ¾ÖÊÆ
- * @author ½¯Åô
+ * EvaluationFunctionè¯„ä¼°å‡½æ•°ç”¨æ¥è¯„ä¼°å½“å‰æ£‹å±€çš„å±€åŠ¿
+ * @author è’‹é¹
  */
 public class EvaluationFunction {
-	/** ¶ÔÂ·µÄÆÀ·Ö×¼Ôò£¬¸Ã½á¹ûÍ¨¹ıÒÅ´«Ëã·¨ÀëÏßÓÅ»¯µÃµ½ */
+	/** å¯¹è·¯çš„è¯„åˆ†å‡†åˆ™ï¼Œè¯¥ç»“æœé€šè¿‡é—ä¼ ç®—æ³•ç¦»çº¿ä¼˜åŒ–å¾—åˆ° */
 	public final static int[] SCOREOFROAD = {0, 17, 78, 141, 788, 1030, 10000};
-	/** ËùÓĞµÄÆåÂ· */
+	/** æ‰€æœ‰çš„æ£‹è·¯ */
 	public static Vector<Road> allRoads = new Vector<>(924);
-	/** ºÚ×ÓµÄÓĞĞ§ÆåÂ·Êı */
+	/** é»‘å­çš„æœ‰æ•ˆæ£‹è·¯æ•° */
 	public static int[] numberOfBlackRoad = new int[7];
-	/** °××ÓµÄÓĞĞ§ÆåÂ·Êı */
+	/** ç™½å­çš„æœ‰æ•ˆæ£‹è·¯æ•° */
 	public static int[] numberOfWhiteRoad = new int[7];
-//  Àà·½·¨
+//  ç±»æ–¹æ³•
 	/**  
-	 *  checkChessStatus·½·¨ÓÃÀ´¼ì²éµ±Ç°Æå¾Ö×´Ì¬£¬²¢½«Æå¾Ö×´Ì¬½á¹û¼ÇÂ¼ 
-	 *  @param cbm µ±Ç°µÄÆå¾ÖÊı¾İÄ£ĞÍ
+	 *  checkChessStatusæ–¹æ³•ç”¨æ¥æ£€æŸ¥å½“å‰æ£‹å±€çŠ¶æ€ï¼Œå¹¶å°†æ£‹å±€çŠ¶æ€ç»“æœè®°å½• 
+	 *  @param cbm å½“å‰çš„æ£‹å±€æ•°æ®æ¨¡å‹
 	 */
 	public static void checkChessStatus(ChessBoardModel cbm) {
 		allRoads = new Vector<>(924);
@@ -86,10 +86,10 @@ public class EvaluationFunction {
 		}
 	}
 	/**
-	 *  evaluateChessStatus·½·¨ÓÃÀ´ÆÀ¹ÀÆå¾ÖµÄ¾ÖÊÆĞÅÏ¢
-	 *  @param chessColor ÒªÆÀ¹À¾ÖÊÆµÄÒ»·½Ëù³ÖÆå×ÓÑÕÉ«
-	 *  @param cbm µ±Ç°µÄÆå¾ÖÊı¾İÄ£ĞÍ
-	 *  @return current µ±Ç°Æå×ÓÑÕÉ«¶ÔÓ¦Ò»·½Æå¾ÖµÄÆÀ¹À·ÖÊı
+	 *  evaluateChessStatusæ–¹æ³•ç”¨æ¥è¯„ä¼°æ£‹å±€çš„å±€åŠ¿ä¿¡æ¯
+	 *  @param chessColor è¦è¯„ä¼°å±€åŠ¿çš„ä¸€æ–¹æ‰€æŒæ£‹å­é¢œè‰²
+	 *  @param cbm å½“å‰çš„æ£‹å±€æ•°æ®æ¨¡å‹
+	 *  @return current å½“å‰æ£‹å­é¢œè‰²å¯¹åº”ä¸€æ–¹æ£‹å±€çš„è¯„ä¼°åˆ†æ•°
 	 */
 	public static int evaluateChessStatus(char chessColor,
 			ChessBoardModel cbm) {
@@ -110,9 +110,9 @@ public class EvaluationFunction {
 		return currentScore;
 	}
 	/**
-	 *  isGameOver ¸ù¾İÆå¾ÖÊı¾İÄ£ĞÍÅĞ¶ÏÆå¾ÖÊÇ·ñ½áÊø
-	 *  @param cbm Æå¾ÖÊı¾İÄ£ĞÍ
-	 *  @return result ÅĞ¶Ï½á¹û£¬true±íÃ÷µ±Ç°Æå¾Ö½áÊø£¬false(Ä¬ÈÏ)±íÃ÷µ±Ç°Æå¾ÖÎ´½áÊø
+	 *  isGameOver æ ¹æ®æ£‹å±€æ•°æ®æ¨¡å‹åˆ¤æ–­æ£‹å±€æ˜¯å¦ç»“æŸ
+	 *  @param cbm æ£‹å±€æ•°æ®æ¨¡å‹
+	 *  @return result åˆ¤æ–­ç»“æœï¼Œtrueè¡¨æ˜å½“å‰æ£‹å±€ç»“æŸï¼Œfalse(é»˜è®¤)è¡¨æ˜å½“å‰æ£‹å±€æœªç»“æŸ
 	 */
 	public static boolean isGameOver(ChessBoardModel cbm){
 		boolean result=false;

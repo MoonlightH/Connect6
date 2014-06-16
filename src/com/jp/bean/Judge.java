@@ -17,20 +17,20 @@ import com.jp.ui.model.ChessBoardModel;
 import com.jp.ui.model.DefaultChessBoardModel;
 
 /**
- * JudgeÀà£¬²ÃÅĞ¶ÔÏóÀà£¬ÓÃÓÚÔÚÓÎÏ·¹ı³ÌÖĞ½Ó¹ÜÓÎÏ·
+ * Judgeç±»ï¼Œè£åˆ¤å¯¹è±¡ç±»ï¼Œç”¨äºåœ¨æ¸¸æˆè¿‡ç¨‹ä¸­æ¥ç®¡æ¸¸æˆ
  * 
- * @author ½¯Åô
+ * @author è’‹é¹
  */
 public class Judge implements RoleChangeListener,ChessBoardModelListener{
 	private static Judge judge;
-//¹¹Ôì·½·¨
-	/** ¹¹Ôì·½·¨£¬³õÊ¼»¯ÊôĞÔ */
+//æ„é€ æ–¹æ³•
+	/** æ„é€ æ–¹æ³•ï¼Œåˆå§‹åŒ–å±æ€§ */
 	private Judge() {
 		
 	}
-//ÆÕÍ¨·½·¨
+//æ™®é€šæ–¹æ³•
 	/**
-	 * init·½·¨£¬Ê¹µÃ²ÃÅĞ¶ÔÏó¿ªÊ¼¼àÌı½ÇÉ«×ª»»
+	 * initæ–¹æ³•ï¼Œä½¿å¾—è£åˆ¤å¯¹è±¡å¼€å§‹ç›‘å¬è§’è‰²è½¬æ¢
 	 */
 	public void init(){
 		ChessBoardModel cbm=ChessBoard.getInstance().getModel();
@@ -39,7 +39,7 @@ public class Judge implements RoleChangeListener,ChessBoardModelListener{
 		dcbm.addChessBoardModelListener(this);
 	}
 	/**
-	 * destory·½·¨£¬ÒÆ³ı²ÃÅĞ¶ÔÏó¶Ô½ÇÉ«×ª»»µÄ¼àÌı
+	 * destoryæ–¹æ³•ï¼Œç§»é™¤è£åˆ¤å¯¹è±¡å¯¹è§’è‰²è½¬æ¢çš„ç›‘å¬
 	 */
 	public void destory(){
 		WhiteTimer wt=WhiteTimer.getInstance();
@@ -52,14 +52,14 @@ public class Judge implements RoleChangeListener,ChessBoardModelListener{
 		dcbm.removeChessBoardModelListener(this);
 	}
 	/**
-	 * chessBoardChanged,ÏòÆåÅÌÄ£ĞÍÖĞÌí¼ÓÆå×Óºó´¥·¢µÄÊÂ¼ş´¦Àíº¯Êı
+	 * chessBoardChanged,å‘æ£‹ç›˜æ¨¡å‹ä¸­æ·»åŠ æ£‹å­åè§¦å‘çš„äº‹ä»¶å¤„ç†å‡½æ•°
 	 */
 	@Override
 	public void chessBoardChanged(ChessBoardModelEvent e) {
 		ChessBoardModel cbm=ChessBoard.getInstance().getModel();
 		DefaultChessBoardModel dcbm=(DefaultChessBoardModel)cbm;
 		boolean result=EvaluationFunction.isGameOver(dcbm);
-		//¸ù¾İÆå¾Ö¾ÖÊÆÅĞ¶ÏÆå¾ÖÊÇ·ñÒÑ¾­½áÊø
+		//æ ¹æ®æ£‹å±€å±€åŠ¿åˆ¤æ–­æ£‹å±€æ˜¯å¦å·²ç»ç»“æŸ
 		if(result){
 			destory();
 			MainFrame.getInstance().getGstop().doClick();
@@ -68,7 +68,7 @@ public class Judge implements RoleChangeListener,ChessBoardModelListener{
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						JOptionPane.showMessageDialog(MainFrame.getInstance(), "ºÚ·½»ñÊ¤£¡");
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "é»‘æ–¹è·èƒœï¼");
 					}
 				});
 			}
@@ -76,22 +76,22 @@ public class Judge implements RoleChangeListener,ChessBoardModelListener{
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						JOptionPane.showMessageDialog(MainFrame.getInstance(), "°×·½»ñÊ¤£¡");
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "ç™½æ–¹è·èƒœï¼");
 					}
 				});
 			}
 		}
 	}
 	/**
-	 * roleChanged£¬½ÇÉ«×ª»»ºóµÄ´¦Àí·½·¨ 
+	 * roleChangedï¼Œè§’è‰²è½¬æ¢åçš„å¤„ç†æ–¹æ³• 
 	 */
 	@Override
 	public void roleChanged(RoleChangeEvent e) {
 		new MoveCalculate().execute();
 	}
 	/**
-	 * »ñµÃ²ÃÅĞµ¥Àı¶ÔÏó
-	 * @return judge ²ÃÅĞ¶ÔÏó
+	 * è·å¾—è£åˆ¤å•ä¾‹å¯¹è±¡
+	 * @return judge è£åˆ¤å¯¹è±¡
 	 */
 	public static Judge getInstance() {
 		if(judge==null){
